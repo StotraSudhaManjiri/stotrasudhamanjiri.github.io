@@ -60,12 +60,13 @@ ul.directory-list {
     padding-left: 20px;
     list-style-type: disc;
 }
-ul.directory-list li { margin-bottom: 10px; break-inside: avoid; color: var(--link); }
+ul.directory-list li { margin-bottom: 16px; break-inside: avoid; color: var(--link); }
 ul.directory-list li a { color: var(--link); }
 
 /* Inline Tag Cloud for Devatas */
 .tag-cloud { text-align: center; line-height: 2.5; margin-top: 15px; }
-.tag-cloud a { margin: 0 10px; white-space: nowrap; }
+.tag-cloud a { margin: 5 10px; white-space: nowrap;display: inline-block; 
+    padding: 5px; }
 
 /* Responsive adjustments */
 @media (max-width: 768px) { ul.directory-list { columns: 2; } input[type="text"] { width: 90%; } }
@@ -142,3 +143,18 @@ button {
     flex: 1; padding: 8px; border: 1px solid var(--hr-color);
 }
 .modal-actions button:hover { background: rgba(255,255,255,0.1); }
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--link);
+}
