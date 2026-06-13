@@ -1,17 +1,16 @@
 ---
 layout: default
 ---
-<a href="{{ '/' | relative_url }}">Index</a> / <a href="../">🕉 {{ page.devata }}</a>
+<a href="{{ '/' | relative_url }}">Index</a> / <a href="../">{{ page.devata }}</a>
 <hr>
 
 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
     <h1 style="margin-top: 0;">{{ page.title }}</h1>
-    
-    <button id="save-btn" onclick="toggleSave()">Save</button>
+    <button id="save-btn" onclick="saveToCustomList()">🔖 Save to List</button>
 </div>
 
 <div class="shloka-text">
-{{ content }}
+{{ content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" }}
 </div>
 
 <script>
@@ -19,45 +18,31 @@ layout: default
         title: "{{ page.title }}", 
         url: "{{ page.url | relative_url }}" 
     };
-    const btn = document.getElementById('save-btn');
 
-    // Get existing saves from the user's browser
-    function getSaved() {
-        return JSON.parse(localStorage.getItem('saved_shlokas') || '[]');
-    }
+    function saveToCustomList() {
+        // Ask the user for a list name using native browser prompt
+        let listName = prompt("Enter a list name to save this Shloka (e.g., Morning Pooja, Favorites):", "Favorites");
+        
+        // If they click cancel or enter nothing, abort
+        if (!listName) return; 
 
-    // Check if this specific shloka is already saved
-    function isSaved() {
-        return getSaved().some(s => s.url === currentShloka.url);
-    }
-
-    // Update the button text
-    function updateBtn() {
-        if (isSaved()) {
-            btn.innerText = 'Saved (Remove)';
-            btn.style.color = '#ff6b6b';
-            btn.style.borderColor = '#ff6b6b';
+        // Fetch existing lists or create an empty object
+        let lists = JSON.parse(localStorage.getItem('custom_lists') || '{}');
+        
+        // If this list doesn't exist yet, create it
+        if (!lists[listName]) {
+            lists[listName] = [];
+        }
+        
+        // Check if shloka is already in THIS specific list
+        let exists = lists[listName].some(s => s.url === currentShloka.url);
+        
+        if (!exists) {
+            lists[listName].push(currentShloka);
+            localStorage.setItem('custom_lists', JSON.stringify(lists));
+            alert(`✅ Saved to "${listName}"`);
         } else {
-            btn.innerText = 'Save';
-            btn.style.color = 'var(--link)';
-            btn.style.borderColor = 'var(--link)';
+            alert(`⚠️ This shloka is already in "${listName}"`);
         }
     }
-
-    // Add or remove from the browser storage when clicked
-    function toggleSave() {
-        let saved = getSaved();
-        if (isSaved()) {
-            // Remove it
-            saved = saved.filter(s => s.url !== currentShloka.url);
-        } else {
-            // Add it
-            saved.push(currentShloka);
-        }
-        localStorage.setItem('saved_shlokas', JSON.stringify(saved));
-        updateBtn(); // Refresh button look
-    }
-
-    // Run this when the page loads
-    updateBtn();
 </script>
