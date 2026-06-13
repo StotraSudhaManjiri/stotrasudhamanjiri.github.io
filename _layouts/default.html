@@ -5,21 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | {{ site.title }}</title>
     <style>
-        :root { --bg: #ffffff; --text: #222222; --link: #0033cc; --link-visited: #551a8b; }
-        @media (prefers-color-scheme: dark) {
-            :root { --bg: #121212; --text: #e0e0e0; --link: #66b3ff; --link-visited: #c792ea; }
+        :root { 
+            --bg: #fcfaf8; /* Soft warm paper */
+            --text: #2d2d2d; /* Softer than pure black */
+            --accent: #d35400; /* Deep saffron */
+            --accent-hover: #e67e22;
+            --border: #e8e4de;
+            --card-bg: #ffffff;
         }
-        body { background-color: var(--bg); color: var(--text); font-family: system-ui, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; }
-        h1, h2, h3 { border-bottom: 1px solid var(--text); padding-bottom: 0.5rem; }
-        a { color: var(--link); text-decoration: none; }
-        a:visited { color: var(--link-visited); }
-        a:hover { text-decoration: underline; }
-        ul.clean-list { list-style-type: none; padding: 0; }
-        ul.clean-list li { margin-bottom: 0.5rem; }
-        ul.clean-list li::before { content: "🕉 "; }
-        nav { margin-bottom: 2rem; font-size: 0.9rem; }
         
-        .shloka-text { font-size: 1.25rem; white-space: pre-wrap; text-align: center; margin-top: 2rem; line-height: 2; }
+        @media (prefers-color-scheme: dark) {
+            :root { 
+                --bg: #121212; 
+                --text: #e8e6e3; 
+                --accent: #e67e22; /* Brighter saffron for dark mode */
+                --accent-hover: #f39c12;
+                --border: #333333;
+                --card-bg: #1e1e1e;
+            }
+        }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            /* Elegant serif fonts for traditional text */
+            font-family: "Noto Serif Devanagari", "Georgia", serif; 
+            line-height: 1.8; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 2rem 1.5rem; 
+        }
+        
+        /* Dashboard Headers */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 1.5rem;
+        }
+        
+        h1 { font-size: 2.5rem; margin-bottom: 0.2rem; font-weight: normal; }
+        header p { color: var(--text); opacity: 0.8; font-style: italic; }
+        
+        h2 { 
+            color: var(--accent); 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 0.5rem; 
+            margin-top: 2.5rem; 
+            font-weight: normal;
+        }
+        
+        h3 { margin-top: 2rem; font-size: 1.4rem; font-weight: normal; }
+        
+        /* Links */
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--accent-hover); text-decoration: underline; }
+        nav { margin-bottom: 2rem; font-size: 1.1rem; }
+        
+        /* Elegant Dashboard Lists */
+        ul.clean-list { list-style: none; padding: 0; }
+        ul.clean-list li { 
+            margin-bottom: 0.5rem; 
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed var(--border);
+            font-size: 1.1rem;
+        }
+        ul.clean-list li:last-child { border-bottom: none; }
+        ul.clean-list li::before { 
+            content: "ॐ "; 
+            color: var(--accent); 
+            margin-right: 0.8rem; 
+            font-size: 1.2rem;
+        }
+        
+        /* Shloka Reading Experience */
+        .shloka-text { 
+            font-size: 1.4rem; 
+            white-space: pre-wrap; 
+            text-align: center; 
+            margin-top: 2rem; 
+            line-height: 2.2; 
+            background-color: var(--card-bg);
+            padding: 2.5rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
     </style>
 </head>
 <body>
