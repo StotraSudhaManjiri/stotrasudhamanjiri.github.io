@@ -1,28 +1,16 @@
 ---
 layout: default
 ---
-<nav>
-    <a href="{{ '/' | relative_url }}">← मुखपृष्ठ (Home)</a>
-</nav>
+<a href="{{ '/' | relative_url }}">index</a>
+<hr>
 
-<header>
-    <h1>{{ page.title }}</h1>
-    <p>येथे सर्व संबंधित स्तोत्रे उपलब्ध आहेत (All related shlokas are available here)</p>
-</header>
+<h1>{{ page.title }}</h1>
 
-<main>
-    <!-- Query the database: Find all shlokas where devata == this page's title -->
-    {% assign related_shlokas = site.shlokas | where: "devata", page.title %}
-    
-    {% if related_shlokas.size > 0 %}
-        <ul class="list-view">
-            {% for shloka in related_shlokas %}
-                <li>
-                    <a href="{{ shloka.url | relative_url }}">🕉 {{ shloka.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p style="text-align:center; opacity: 0.6;">या देवतेची स्तोत्रे अद्याप जोडलेली नाहीत. (No shlokas added yet for this deity.)</p>
-    {% endif %}
-</main>
+{% assign related_shlokas = site.shlokas | where: "devata", page.title %}
+<ul>
+    {% for shloka in related_shlokas %}
+    <li>
+        <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
