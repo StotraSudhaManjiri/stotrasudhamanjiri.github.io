@@ -1,16 +1,47 @@
 ---
 layout: default
-title: स्तोत्र सुधा मंजिरी
+title: स्तोत्रसुधामंजिरी
 ---
-<h1>{{ page.title }}</h1>
-<p>{{ site.description }}</p>
+<div style="text-align: center;">
+    <h1 style="color: #fff; margin-bottom: 5px;">🕉 {{ page.title }}</h1>
+    <p>{{ site.description }}</p>
+</div>
+
 <hr>
 
-<h2>देवता</h2>
-<ul>
-    {% for devata in site.devatas %}
+<h2>तुमचे जतन केलेले श्लोक (Saved)</h2>
+<ul class="directory-list" id="saved-list">
+    <li>Loading...</li>
+</ul>
+
+<h2>सर्व स्तोत्रे (All Shlokas)</h2>
+<ul class="directory-list">
+    {% for shloka in site.shlokas %}
     <li>
-        <a href="{{ devata.url | relative_url }}">{{ devata.title }}</a>
+        <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
     </li>
     {% endfor %}
 </ul>
+
+<h2>देवता (Browse by Devata...)</h2>
+<div class="tag-cloud">
+    {% for devata in site.devatas %}
+        <a href="{{ devata.url | relative_url }}">🕉 {{ devata.title }}</a>
+    {% endfor %}
+</div>
+
+<hr>
+
+<script>
+    const savedList = document.getElementById('saved-list');
+    const saved = JSON.parse(localStorage.getItem('saved_shlokas') || '[]');
+
+    if (saved.length === 0) {
+        savedList.innerHTML = '<li>Nothing saved yet.</li>';
+    } else {
+        savedList.innerHTML = '';
+        saved.forEach(shloka => {
+            savedList.innerHTML += `<li><a href="${shloka.url}">${shloka.title}</a></li>`;
+        });
+    }
+</script>

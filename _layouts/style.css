@@ -1,0 +1,104 @@
+:root {
+    /* Exact colors from the based.cooking dark theme */
+    --bg: #111111;
+    --text: #cccccc;
+    --heading: #ff6b6b; /* The reddish header color */
+    --link: #e5c07b;    /* The golden link color */
+    --link-hover: #ffffff;
+    --hr-color: #e5c07b;
+}
+
+/* Light mode fallback if the user's phone is in light mode */
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #ffffff;
+        --text: #222222;
+        --heading: #c0392b;
+        --link: #b8860b;
+        --hr-color: #ccc;
+    }
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* Centered, distinct headings */
+h1, h2, h3 {
+    color: var(--heading);
+    text-align: center;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+/* Flat golden links */
+a {
+    color: var(--link);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--link-hover);
+}
+
+/* The distinct top/bottom divider line */
+hr {
+    border: 0;
+    border-top: 1px solid var(--hr-color);
+    margin: 20px 0;
+}
+
+/* Multi-column list for the main directory */
+ul.directory-list {
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    column-gap: 30px;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+ul.directory-list li {
+    margin-bottom: 8px;
+    break-inside: avoid;
+}
+
+/* Inline tag cloud for the categories */
+.tag-cloud {
+    text-align: center;
+    line-height: 2.2;
+    margin-top: 10px;
+}
+
+.tag-cloud a {
+    margin: 0 8px;
+    white-space: nowrap;
+}
+
+/* Make columns responsive for smaller screens */
+@media (max-width: 768px) { ul.directory-list { columns: 2; } }
+@media (max-width: 480px) { ul.directory-list { columns: 1; } }
+
+/* Shloka reading text */
+.shloka-text {
+    white-space: pre-wrap;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--text);
+}
+
+button { 
+    background: transparent; 
+    border: 1px solid var(--link); 
+    color: var(--link); 
+    cursor: pointer; 
+    padding: 2px 8px;
+}
