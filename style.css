@@ -65,7 +65,7 @@ ul.directory-list li a { color: var(--link); }
 
 /* Inline Tag Cloud for Devatas */
 .tag-cloud { text-align: center; line-height: 2.5; margin-top: 15px; }
-.tag-cloud a { margin: 5 10px; white-space: nowrap;display: inline-block; 
+.tag-cloud a { margin: 5px 10px; white-space: nowrap;display: inline-block; 
     padding: 5px; }
 
 /* Responsive adjustments */
