@@ -14,16 +14,8 @@ title: स्तोत्रसुधामंजिरी
     <li>Loading...</li>
 </ul>
 
-<h2>सर्व स्तोत्रे (All Shlokas)</h2>
-<ul class="directory-list">
-    {% for shloka in site.shlokas %}
-    <li>
-        <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
 
-<h2>देवता (Browse by Devata...)</h2>
+<h2>देवता</h2>
 <div class="tag-cloud">
     {% for devata in site.devatas %}
         <a href="{{ devata.url | relative_url }}">🕉 {{ devata.title }}</a>
