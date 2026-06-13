@@ -1,6 +1,6 @@
 ---
 layout: shloka
-title: वक्रतुण्ड महाकाय (Vakratunda Mahakaya)
+title: वक्रतुण्ड महाकाय 
 devata: श्री गणपती
 ---
 

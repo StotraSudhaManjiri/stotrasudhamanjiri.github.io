@@ -1,11 +1,63 @@
 ---
 layout: default
 ---
-<a href="{{ '/' | relative_url }}">index</a> / <a href="../">{{ page.devata }}</a>
+<a href="{{ '/' | relative_url }}">Index</a> / <a href="../">🕉 {{ page.devata }}</a>
 <hr>
 
-<h1>{{ page.title }}</h1>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+    <h1 style="margin-top: 0;">{{ page.title }}</h1>
+    
+    <button id="save-btn" onclick="toggleSave()">Save</button>
+</div>
 
 <div class="shloka-text">
 {{ content }}
 </div>
+
+<script>
+    const currentShloka = { 
+        title: "{{ page.title }}", 
+        url: "{{ page.url | relative_url }}" 
+    };
+    const btn = document.getElementById('save-btn');
+
+    // Get existing saves from the user's browser
+    function getSaved() {
+        return JSON.parse(localStorage.getItem('saved_shlokas') || '[]');
+    }
+
+    // Check if this specific shloka is already saved
+    function isSaved() {
+        return getSaved().some(s => s.url === currentShloka.url);
+    }
+
+    // Update the button text
+    function updateBtn() {
+        if (isSaved()) {
+            btn.innerText = 'Saved (Remove)';
+            btn.style.color = '#ff6b6b';
+            btn.style.borderColor = '#ff6b6b';
+        } else {
+            btn.innerText = 'Save';
+            btn.style.color = 'var(--link)';
+            btn.style.borderColor = 'var(--link)';
+        }
+    }
+
+    // Add or remove from the browser storage when clicked
+    function toggleSave() {
+        let saved = getSaved();
+        if (isSaved()) {
+            // Remove it
+            saved = saved.filter(s => s.url !== currentShloka.url);
+        } else {
+            // Add it
+            saved.push(currentShloka);
+        }
+        localStorage.setItem('saved_shlokas', JSON.stringify(saved));
+        updateBtn(); // Refresh button look
+    }
+
+    // Run this when the page loads
+    updateBtn();
+</script>

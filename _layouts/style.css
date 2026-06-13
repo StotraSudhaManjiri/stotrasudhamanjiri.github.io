@@ -1,13 +1,14 @@
+---
+---
 :root {
     /* Exact colors from the based.cooking dark theme */
     --bg: #111111;
     --text: #cccccc;
-    --heading: #ff6b6b; /* The reddish header color */
-    --link: #e5c07b;    /* The golden link color */
+    --heading: #ff6b6b;
+    --link: #e5c07b;
     --link-hover: #ffffff;
     --hr-color: #e5c07b;
 }
-
 /* Light mode fallback if the user's phone is in light mode */
 @media (prefers-color-scheme: light) {
     :root {
