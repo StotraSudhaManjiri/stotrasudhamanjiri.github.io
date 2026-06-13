@@ -6,91 +6,68 @@
     <title>{{ page.title }} | {{ site.title }}</title>
     <style>
         :root { 
-            --bg: #fcfaf8; /* Soft warm paper */
-            --text: #2d2d2d; /* Softer than pure black */
-            --accent: #d35400; /* Deep saffron */
-            --accent-hover: #e67e22;
-            --border: #e8e4de;
-            --card-bg: #ffffff;
+            --bg: #fcfaf8; --text: #2d2d2d; --accent: #d35400; 
+            --card-bg: #ffffff; --card-hover: #fff9f5; --border: #e8e4de;
         }
-        
         @media (prefers-color-scheme: dark) {
             :root { 
-                --bg: #121212; 
-                --text: #e8e6e3; 
-                --accent: #e67e22; /* Brighter saffron for dark mode */
-                --accent-hover: #f39c12;
-                --border: #333333;
-                --card-bg: #1e1e1e;
+                --bg: #121212; --text: #e8e6e3; --accent: #e67e22; 
+                --card-bg: #1e1e1e; --card-hover: #2a2a2a; --border: #333333;
             }
         }
         
         body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            /* Elegant serif fonts for traditional text */
+            background-color: var(--bg); color: var(--text); 
             font-family: "Noto Serif Devanagari", "Georgia", serif; 
-            line-height: 1.8; 
-            max-width: 800px; 
-            margin: 0 auto; 
-            padding: 2rem 1.5rem; 
+            line-height: 1.6; max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; 
         }
         
-        /* Dashboard Headers */
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 1.5rem;
+        /* Typography */
+        header { text-align: center; margin-bottom: 2.5rem; }
+        h1 { font-size: 2.2rem; margin-bottom: 0.2rem; font-weight: normal; }
+        h2 { font-size: 1.8rem; font-weight: normal; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem;}
+        a { color: var(--accent); text-decoration: none; transition: 0.2s ease; }
+        nav { margin-bottom: 2rem; font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        
+        /* Auto-scaling CSS Grid for 100s of Devatas */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
         }
-        
-        h1 { font-size: 2.5rem; margin-bottom: 0.2rem; font-weight: normal; }
-        header p { color: var(--text); opacity: 0.8; font-style: italic; }
-        
-        h2 { 
-            color: var(--accent); 
-            border-bottom: 1px solid var(--border); 
-            padding-bottom: 0.5rem; 
-            margin-top: 2.5rem; 
-            font-weight: normal;
-        }
-        
-        h3 { margin-top: 2rem; font-size: 1.4rem; font-weight: normal; }
-        
-        /* Links */
-        a { color: var(--accent); text-decoration: none; transition: color 0.2s ease; }
-        a:hover { color: var(--accent-hover); text-decoration: underline; }
-        nav { margin-bottom: 2rem; font-size: 1.1rem; }
-        
-        /* Elegant Dashboard Lists */
-        ul.clean-list { list-style: none; padding: 0; }
-        ul.clean-list li { 
-            margin-bottom: 0.5rem; 
-            padding: 0.8rem 0;
-            border-bottom: 1px dashed var(--border);
-            font-size: 1.1rem;
-        }
-        ul.clean-list li:last-child { border-bottom: none; }
-        ul.clean-list li::before { 
-            content: "ॐ "; 
-            color: var(--accent); 
-            margin-right: 0.8rem; 
-            font-size: 1.2rem;
-        }
-        
-        /* Shloka Reading Experience */
-        .shloka-text { 
-            font-size: 1.4rem; 
-            white-space: pre-wrap; 
-            text-align: center; 
-            margin-top: 2rem; 
-            line-height: 2.2; 
+
+        /* Card Component */
+        .card {
             background-color: var(--card-bg);
-            padding: 2.5rem 1.5rem;
-            border-radius: 8px;
             border: 1px solid var(--border);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
+        .card:hover {
+            background-color: var(--card-hover);
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 4px 10px rgba(211, 84, 0, 0.1);
+        }
+        .card-title { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--text); }
+        .card-subtitle { font-size: 0.9rem; color: var(--text); opacity: 0.7; }
+
+        /* Reading View */
+        .shloka-text { 
+            font-size: 1.4rem; white-space: pre-wrap; text-align: center; 
+            margin-top: 2rem; line-height: 2.2; 
+        }
+        
+        ul.list-view { list-style: none; padding: 0; }
+        ul.list-view li { border-bottom: 1px dashed var(--border); padding: 1rem 0; }
+        ul.list-view a { display: block; font-size: 1.2rem; }
+        ul.list-view a:hover { padding-left: 5px; } /* Micro-interaction */
     </style>
 </head>
 <body>
