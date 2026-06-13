@@ -8,17 +8,14 @@ title: मुखपृष्ठ (Home)
 </header>
 
 <main>
-    <h2>स्तोत्र संग्रह (Collection)</h2>
+    <h2>देवता (Deities)</h2>
     
-    <!-- This loop groups all files by the "devata" tag you give them -->
-    {% assign devata_groups = site.shlokas | group_by: "devata" %}
-    
-    {% for group in devata_groups %}
-        <h3>{{ group.name }}</h3>
-        <ul class="clean-list">
-        {% for shloka in group.items %}
-            <li><a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a></li>
+    <div class="grid">
+        {% for devata in site.devatas %}
+        <a href="{{ devata.url | relative_url }}" class="card">
+            <span class="card-title">{{ devata.title }}</span>
+            <span class="card-subtitle">{{ devata.english_title }}</span>
+        </a>
         {% endfor %}
-        </ul>
-    {% endfor %}
+    </div>
 </main>
