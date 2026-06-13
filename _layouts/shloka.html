@@ -1,16 +1,37 @@
 ---
 layout: default
 ---
-<a href="{{ '/' | relative_url }}">Index</a> / <a href="../">{{ page.devata }}</a>
-<hr>
 
-<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
-    <h1 style="margin-top: 0;">{{ page.title }}</h1>
-    <button id="save-btn" onclick="saveToCustomList()" style="cursor:pointer;">🔖 Save to List</button>
-</div>
+<header class="shloka-header">
+    <h1>{{ page.title }}</h1>
+    <button class="btn-unboxed" onclick="openSaveModal()">
+         Save to List
+    </button>
+</header>
 
 <div class="shloka-text">
 {{ content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" }}
+</div>
+
+<nav style="text-align: center; margin-top: 50px; opacity: 0.8; font-size: 1.1rem;">
+    <hr>
+    <a href="{{ '/' | relative_url }}">← Back to Index</a> &nbsp;|&nbsp; 
+    <a href="../">More for {{ page.devata }}</a>
+</nav>
+
+<div id="saveModal" class="modal-backdrop">
+    <div class="modal-content">
+        <h3>Save Shloka</h3>
+        <p style="font-size: 0.9em; margin-bottom: 5px;">Enter a list name:</p>
+        <input type="text" id="listNameInput" value="Favorites" onkeypress="handleEnter(event)">
+        
+        <div id="modalMessage" style="color: var(--heading); font-size: 0.9em; height: 20px; margin-bottom: 10px;"></div>
+        
+        <div class="modal-actions">
+            <button onclick="closeSaveModal()" style="color: var(--text); border-color: #555;">Cancel</button>
+            <button onclick="confirmSave()" style="color: var(--link); border-color: var(--link);">Save</button>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -19,27 +40,48 @@ layout: default
         url: "{{ page.url | relative_url }}" 
     };
 
-    function saveToCustomList() {
-        // Native browser prompt asks for the list name
-        let listName = prompt("Enter a list name to save this Shloka (e.g., Morning Pooja, Favorites):", "Favorites");
-        
-        if (!listName) return; // Exit if they click cancel
+    const modal = document.getElementById('saveModal');
+    const input = document.getElementById('listNameInput');
+    const msgBox = document.getElementById('modalMessage');
+
+    function openSaveModal() {
+        msgBox.innerText = ""; // Clear old messages
+        modal.classList.add('active');
+        input.focus();
+        input.select(); // Highlights "Favorites" so they can easily type over it
+    }
+
+    function closeSaveModal() {
+        modal.classList.remove('active');
+    }
+
+    // Allow pressing "Enter" key to save
+    function handleEnter(e) {
+        if (e.key === 'Enter') confirmSave();
+    }
+
+    function confirmSave() {
+        let listName = input.value.trim();
+        if (!listName) {
+            msgBox.innerText = "Please enter a name.";
+            return;
+        }
 
         let lists = JSON.parse(localStorage.getItem('custom_lists') || '{}');
         
-        // Create the list if it doesn't exist
-        if (!lists[listName]) {
-            lists[listName] = [];
-        }
+        if (!lists[listName]) lists[listName] = [];
         
         let exists = lists[listName].some(s => s.url === currentShloka.url);
         
         if (!exists) {
             lists[listName].push(currentShloka);
             localStorage.setItem('custom_lists', JSON.stringify(lists));
-            
+            msgBox.style.color = "#4CAF50"; // Green for success
+            msgBox.innerText = "✅ Saved successfully!";
+            setTimeout(closeSaveModal, 800); // Auto-close after 0.8 seconds
         } else {
-           
+            msgBox.style.color = "var(--heading)"; // Red for warning
+            msgBox.innerText = "⚠️ Already in this list!";
         }
     }
 </script>

@@ -77,3 +77,68 @@ button {
     background: transparent; border: 1px solid var(--link); color: var(--link); 
     cursor: pointer; padding: 4px 10px; border-radius: 3px; 
 }
+
+/* --- Shloka Top Bar --- */
+.shloka-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-bottom: 1px solid var(--hr-color);
+    padding-bottom: 15px;
+}
+.shloka-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    text-align: left;
+}
+.btn-unboxed {
+    background: transparent;
+    border: none;
+    color: var(--link);
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0;
+}
+.btn-unboxed:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+/* --- Custom Modals --- */
+.modal-backdrop {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); /* Dark dimming effect */
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+}
+.modal-backdrop.active {
+    opacity: 1; pointer-events: auto;
+}
+.modal-content {
+    background-color: var(--bg);
+    border: 1px solid var(--hr-color);
+    padding: 25px;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+.modal-content h3 { margin-top: 0; font-size: 1.4rem; }
+.modal-content input {
+    width: 80%; padding: 8px; margin: 15px 0;
+    background: var(--search-bg); border: 1px solid #444; color: var(--text);
+    text-align: center;
+}
+.modal-actions {
+    display: flex; justify-content: space-between; gap: 10px; margin-top: 10px;
+}
+.modal-actions button {
+    flex: 1; padding: 8px; border: 1px solid var(--hr-color);
+}
+.modal-actions button:hover { background: rgba(255,255,255,0.1); }
