@@ -1,105 +1,103 @@
----
----
 :root {
-    /* Exact colors from the based.cooking dark theme */
-    --bg: #111111;
-    --text: #cccccc;
-    --heading: #ff6b6b;
-    --link: #e5c07b;
-    --link-hover: #ffffff;
-    --hr-color: #e5c07b;
+  --bg: #1f1f1f;
+  --text: #e6e6e6;
+  --heading: #e6e6e6;
+  --link: #4f9cf9;
+  --link-hover: #ffffff;
+  --hr-color: #444444;
 }
-/* Light mode fallback if the user's phone is in light mode */
+
 @media (prefers-color-scheme: light) {
-    :root {
-        --bg: #ffffff;
-        --text: #222222;
-        --heading: #c0392b;
-        --link: #b8860b;
-        --hr-color: #ccc;
-    }
+  :root {
+    --bg: #ffffff;
+    --text: #1a1a1a;
+    --heading: #1a1a1a;
+    --link: #0000ee;
+    --hr-color: #cccccc;
+  }
 }
 
 body {
-    font-family: sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    line-height: 1.6;
+  font-family: Georgia, "Times New Roman", serif;
+  background-color: var(--bg);
+  color: var(--text);
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
-/* Centered, distinct headings */
 h1, h2, h3 {
-    color: var(--heading);
-    text-align: center;
-    font-weight: bold;
-    margin-top: 30px;
+  color: var(--heading);
+  text-align: center;
+  font-weight: bold;
+  margin-top: 30px;
 }
 
-/* Flat golden links */
 a {
-    color: var(--link);
-    text-decoration: none;
+  color: var(--link);
+  text-decoration: underline;
 }
 
 a:hover {
-    text-decoration: underline;
-    color: var(--link-hover);
+  color: var(--link-hover);
 }
 
-/* The distinct top/bottom divider line */
 hr {
-    border: 0;
-    border-top: 1px solid var(--hr-color);
-    margin: 20px 0;
+  border: 0;
+  border-top: 1px solid var(--hr-color);
+  margin: 20px 0;
 }
 
-/* Multi-column list for the main directory */
 ul.directory-list {
-    columns: 3;
-    -webkit-columns: 3;
-    -moz-columns: 3;
-    column-gap: 30px;
-    list-style-type: disc;
-    padding-left: 20px;
+  columns: 3;
+  -webkit-columns: 3;
+  -moz-columns: 3;
+  column-gap: 30px;
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
 ul.directory-list li {
-    margin-bottom: 8px;
-    break-inside: avoid;
+  margin-bottom: 8px;
+  break-inside: avoid;
 }
 
-/* Inline tag cloud for the categories */
 .tag-cloud {
-    text-align: center;
-    line-height: 2.2;
-    margin-top: 10px;
+  text-align: center;
+  line-height: 2.2;
+  margin-top: 10px;
 }
 
 .tag-cloud a {
-    margin: 0 8px;
-    white-space: nowrap;
+  margin: 0 8px;
+  white-space: nowrap;
 }
 
-/* Make columns responsive for smaller screens */
 @media (max-width: 768px) { ul.directory-list { columns: 2; } }
 @media (max-width: 480px) { ul.directory-list { columns: 1; } }
 
-/* Shloka reading text */
 .shloka-text {
-    white-space: pre-wrap;
-    font-size: 1.2rem;
-    text-align: center;
-    margin-top: 20px;
-    color: var(--text);
+  white-space: pre-wrap;
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 20px;
+  color: var(--text);
+  font-family: Georgia, "Times New Roman", serif;
 }
 
-button { 
-    background: transparent; 
-    border: 1px solid var(--link); 
-    color: var(--link); 
-    cursor: pointer; 
-    padding: 2px 8px;
+button {
+  background: transparent;
+  border: 1px solid var(--link);
+  color: var(--link);
+  cursor: pointer;
+  padding: 2px 10px;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+button:hover {
+  border-color: var(--link-hover);
+  color: var(--link-hover);
 }
