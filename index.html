@@ -2,24 +2,34 @@
 layout: default
 title: स्तोत्रसुधामंजिरी
 ---
-
 <div style="text-align: center;">
-    <h1 style="color: #fff; margin-bottom: 5px;">{{ page.title }}</h1>
+    <h1 style="color: #fff; margin-bottom: 5px; font-size: 2rem;">{{ page.title }}</h1>
     <p>{{ site.description }}</p>
     
-    <button id="installAppBtn" style="display:none; margin-top:10px;">📲 Install App to Home Screen</button>
+    <button id="installAppBtn" style="display:none; margin-top:10px; cursor:pointer;">📲 Install App</button>
 </div>
 
 <hr>
 
+<div class="search-container" style="text-align: center; margin: 20px 0;">
+    <input type="text" id="searchInput" placeholder="Search ALL Shlokas..." onkeyup="filterList()" style="background-color: #222; border: 1px solid #444; color: white; padding: 10px 15px; width: 60%; max-width: 400px; border-radius: 4px; font-size: 1rem;">
+</div>
+
 <div id="saved-section" style="display: none;">
-    <h2>तुमचे जतन केलेले श्लोक (Custom Lists)</h2>
+    <h2>तुमचे जतन केलेले श्लोक (Saved Lists)</h2>
     <div id="custom-lists-container"></div>
     <hr>
 </div>
 
+<h2>देवता </h2>
+<div class="tag-cloud">
+    {% for devata in site.devatas %}
+        <a href="{{ devata.url | relative_url }}">🕉 {{ devata.title }}</a>
+    {% endfor %}
+</div>
+
 <h2>सर्व स्तोत्रे (All Shlokas)</h2>
-<ul class="directory-list">
+<ul class="directory-list" id="shlokaList">
     {% for shloka in site.shlokas %}
     <li>
         <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
@@ -27,27 +37,30 @@ title: स्तोत्रसुधामंजिरी
     {% endfor %}
 </ul>
 
-<h2>देवता (Browse by Devata...)</h2>
-<div class="tag-cloud">
-    {% for devata in site.devatas %}
-        <a href="{{ devata.url | relative_url }}">{{ devata.title }}</a>
-    {% endfor %}
-</div>
 
 <hr>
 
 <script>
-    /* --- CUSTOM LISTS LOGIC --- */
+    /* 1. Live Search Logic */
+    function filterList() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let items = document.getElementById('shlokaList').getElementsByTagName('li');
+        for (let i = 0; i < items.length; i++) {
+            let text = items[i].innerText.toLowerCase();
+            items[i].style.display = text.includes(input) ? "" : "none";
+        }
+    }
+
+    /* 2. Custom Lists Logic */
     const savedSection = document.getElementById('saved-section');
     const container = document.getElementById('custom-lists-container');
     const lists = JSON.parse(localStorage.getItem('custom_lists') || '{}');
 
-    // If there is data, show the section and build the lists
+    // Show section only if lists exist
     if (Object.keys(lists).length > 0) {
         savedSection.style.display = 'block';
         for (const [listName, shlokas] of Object.entries(lists)) {
-            // Generate a header for the list with a delete button
-            let html = `<h3>📁 ${listName} <button onclick="clearList('${listName}')" style="font-size:0.7em; margin-left:10px;">Delete List</button></h3>`;
+            let html = `<h3>📁 ${listName} <button onclick="clearList('${listName}')" style="font-size:0.7em; margin-left:10px; cursor:pointer;">Clear</button></h3>`;
             html += `<ul class="directory-list">`;
             shlokas.forEach(s => {
                 html += `<li><a href="${s.url}">${s.title}</a></li>`;
@@ -58,23 +71,22 @@ title: स्तोत्रसुधामंजिरी
     }
 
     function clearList(name) {
-        if(confirm(`Are you sure you want to delete the list: "${name}"?`)) {
+        if(confirm(`Delete the list: "${name}"?`)) {
             let temp = JSON.parse(localStorage.getItem('custom_lists') || '{}');
             delete temp[name];
             localStorage.setItem('custom_lists', JSON.stringify(temp));
-            location.reload(); // Refresh page to update UI
+            location.reload(); // Refresh to hide the deleted list
         }
     }
 
-    /* --- PWA INSTALL LOGIC --- */
+    /* 3. PWA Install Prompt Logic */
     let deferredPrompt;
     const installBtn = document.getElementById('installAppBtn');
 
-    // Chrome/Android fires this event if the PWA meets all criteria
     window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
         deferredPrompt = e;
-        installBtn.style.display = 'inline-block'; // Show the button
+        installBtn.style.display = 'inline-block';
     });
 
     installBtn.addEventListener('click', async () => {
@@ -82,7 +94,7 @@ title: स्तोत्रसुधामंजिरी
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
             if (outcome === 'accepted') {
-                installBtn.style.display = 'none'; // Hide button after install
+                installBtn.style.display = 'none';
             }
             deferredPrompt = null;
         }

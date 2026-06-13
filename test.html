@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <title>स्तोत्र सुधा मंजिरी</title>
+    <style>
+        :root {
+            --bg: #111111;
+            --text: #cccccc;
+            --heading: #e06c75; /* Exact based.cooking coral red */
+            --link: #e5c07b;    /* Exact based.cooking yellow/gold */
+            --link-hover: #ffffff;
+            --hr-color: #e5c07b;
+            --search-bg: #222222;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading);
+            text-align: center;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+
+        a { color: var(--link); text-decoration: none; }
+        a:hover { color: var(--link-hover); text-decoration: underline; }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--hr-color);
+            margin: 20px 0;
+        }
+
+        /* The based.cooking Search Bar */
+        .search-container { text-align: center; margin: 20px 0; }
+        input[type="text"] {
+            background-color: var(--search-bg);
+            border: 1px solid #444;
+            color: white;
+            padding: 10px 15px;
+            width: 60%;
+            max-width: 400px;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        input[type="text"]:focus { outline: 1px solid var(--link); }
+
+        /* Multi-column list exactly like the screenshot */
+        ul.directory-list {
+            columns: 3;
+            -webkit-columns: 3;
+            column-gap: 40px;
+            padding-left: 20px;
+            list-style-type: disc; /* Forces bullet points */
+        }
+
+        ul.directory-list li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+            color: var(--link); /* Colors the bullet point gold */
+        }
+        ul.directory-list li a { color: var(--link); } /* Keeps link text gold */
+
+        /* Inline Tag Cloud */
+        .tag-cloud {
+            text-align: center;
+            line-height: 2.5;
+            margin-top: 15px;
+        }
+        .tag-cloud a { margin: 0 10px; white-space: nowrap; }
+
+        @media (max-width: 768px) { ul.directory-list { columns: 2; } input[type="text"] { width: 90%; } }
+        @media (max-width: 480px) { ul.directory-list { columns: 1; } }
+    </style>
+</head>
+<body>
+
+    <div style="text-align: center;">
+        <h1 style="color: #fff; margin-bottom: 5px; font-size: 2rem;">🕉 स्तोत्र सुधा मंजिरी</h1>
+    </div>
+
+    <hr>
+
+    <h2>What do you want to read?</h2>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search ALL Shlokas..." onkeyup="filterList()">
+    </div>
+
+    <h2>All Shlokas</h2>
+    <ul class="directory-list" id="shlokaList">
+        <li><a href="#">वक्रतुण्ड महाकाय (Vakratunda)</a></li>
+        <li><a href="#">गणपती अथर्वशीर्ष (Atharvashirsha)</a></li>
+        <li><a href="#">मारुती स्तोत्र (Maruti Stotra)</a></li>
+        <li><a href="#">रामरक्षा स्तोत्र (Ramraksha)</a></li>
+        <li><a href="#">महिषासुरमर्दिनी स्तोत्र</a></li>
+        <li><a href="#">व्यंकटेश स्तोत्र</a></li>
+        <li><a href="#">नवग्रह स्तोत्र</a></li>
+        <li><a href="#">प्रज्ञाविवर्धन स्तोत्र</a></li>
+        <li><a href="#">आदित्यहृदय स्तोत्र</a></li>
+    </ul>
+
+    <h2>Or Browse by Devata...</h2>
+    <div class="tag-cloud">
+        <a href="#">🐘 श्री गणपती</a>
+        <a href="#">🐒 श्री हनुमान</a>
+        <a href="#">🏹 श्री राम</a>
+        <a href="#">🔱 श्री शिव</a>
+        <a href="#">🌸 श्री देवी</a>
+        <a href="#">🦅 श्री विष्णू</a>
+    </div>
+
+    <hr>
+    <div style="text-align: center; font-size: 0.9em;">
+        <p>A minimalist, bloat-free collection.</p>
+    </div>
+
+    <script>
+        function filterList() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let items = document.getElementById('shlokaList').getElementsByTagName('li');
+            
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].innerText.toLowerCase();
+                items[i].style.display = text.includes(input) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
