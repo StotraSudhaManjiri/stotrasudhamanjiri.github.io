@@ -3,42 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | {{ site.title }}</title>
-    <style>
-       body {
-    font-family: sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-    line-height: 1.5;
-    color: #000;
-    background: #fff;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        color: #eee;
-        background: #111;
-    }
-    a { color: #8ab4f8; }
-    a:visited { color: #c58af9; }
-}
-
-a { color: #0000ee; text-decoration: none; }
-a:visited { color: #551a8b; }
-a:hover { text-decoration: underline; }
-
-h1, h2, h3 { margin-bottom: 0.5rem; }
-hr { border: 0; border-top: 1px solid #ccc; margin: 1rem 0; }
-
-.shloka-text {
-    white-space: pre-wrap;
-    font-size: 1.1rem;
-}
-
-/* Raw native button, no styling */
-button { margin-left: 1rem; }
-    </style>
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
     {{ content }}
