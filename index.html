@@ -1,21 +1,16 @@
 ---
 layout: default
-title: मुखपृष्ठ (Home)
+title: स्तोत्र सुधा मंजिरी
 ---
-<header>
-    <h1>{{ site.title }}</h1>
-    <p>{{ site.description }}</p>
-</header>
+<h1>{{ page.title }}</h1>
+<p>{{ site.description }}</p>
+<hr>
 
-<main>
-    <h2>देवता (Deities)</h2>
-    
-    <div class="grid">
-        {% for devata in site.devatas %}
-        <a href="{{ devata.url | relative_url }}" class="card">
-            <span class="card-title">{{ devata.title }}</span>
-            <span class="card-subtitle">{{ devata.english_title }}</span>
-        </a>
-        {% endfor %}
-    </div>
-</main>
+<h2>देवता</h2>
+<ul>
+    {% for devata in site.devatas %}
+    <li>
+        <a href="{{ devata.url | relative_url }}">{{ devata.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
