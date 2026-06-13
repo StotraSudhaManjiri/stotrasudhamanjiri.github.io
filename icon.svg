@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <circle cx="256" cy="256" r="240" fill="#d35400" />
+  
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#ffffff" stroke-width="6" stroke-dasharray="12, 12" />
+
+  <path d="M 130 350 C 130 350 180 380 256 360 C 332 380 382 350 382 350 L 382 220 C 382 220 332 250 256 230 C 180 250 130 220 130 220 Z" fill="none" stroke="#ffffff" stroke-width="24" stroke-linejoin="round"/>
+  
+  <line x1="256" y1="230" x2="256" y2="360" stroke="#ffffff" stroke-width="24" stroke-linecap="round"/>
+  
+  <path d="M 160 260 C 190 270 220 265 256 250" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 160 300 C 190 310 220 305 256 290" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  
+  <path d="M 352 260 C 322 270 292 265 256 250" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M 352 300 C 322 310 292 305 256 290" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+
+  <text x="256" y="150" font-family="sans-serif" font-weight="bold" font-size="130" fill="#ffffff" text-anchor="middle" dominant-baseline="middle">ॐ</text>
+</svg>
