@@ -2,6 +2,7 @@
 layout: shloka
 title: वक्रतुण्ड महाकाय 
 devata: श्री गणपती
+english_title: vakratunda mahakaya
 ---
 
 वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।

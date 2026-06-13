@@ -2,6 +2,7 @@
 layout: shloka
 title: श्रीरामरक्षा 
 devata: श्रीराम
+english_title: ramraksha
 ---
 श्रीगणेशायनम: ।
 अस्य श्रीरामरक्षास्तोत्रमन्त्रस्य ।
