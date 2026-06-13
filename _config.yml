@@ -1,6 +1,9 @@
 title: स्तोत्र सुधा मंजिरी (Stotra Sudha Manjiri)
-description: A minimalist, bloat-free collection of Shlokas and Stotras in Marathi.
-theme: null 
+description: A minimalist, scalable collection of Shlokas.
+theme: null
+
 collections:
+  devatas:
+    output: true
   shlokas:
     output: true
