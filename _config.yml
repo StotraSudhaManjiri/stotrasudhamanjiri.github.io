@@ -9,3 +9,6 @@ collections:
     output: true
   shlokas:
     output: true
+
+plugins:
+  - jekyll-sitemap
