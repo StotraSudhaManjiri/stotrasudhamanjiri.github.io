@@ -16,12 +16,13 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js');
+                navigator.serviceWorker.register('{{ "/sw.js" | relative_url }}');
             });
         }
-   
+    </script>
+
     <footer style="text-align: center; margin-top: 50px; font-size: 0.9em;">
         <p> 🌼 || श्रीसीतारामचंद्रार्पणमस्तु || 🌼 </p>
-        </footer> </script>
+    </footer>
 </body>
 </html>
