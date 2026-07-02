@@ -10,5 +10,19 @@ collections:
   shlokas:
     output: true
 
+# New content files get the right layout automatically —
+# a new shloka/devata .md only needs title + devata front matter.
+defaults:
+  - scope:
+      path: ""
+      type: "shlokas"
+    values:
+      layout: "shloka"
+  - scope:
+      path: ""
+      type: "devatas"
+    values:
+      layout: "devata"
+
 plugins:
   - jekyll-sitemap

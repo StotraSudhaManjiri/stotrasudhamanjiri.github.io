@@ -1,5 +1,5 @@
 ---
-layout: devata
-title: श्रीराम 
+title: श्रीराम
 english_title: Shri Ram
+emoji: 🏹
 ---

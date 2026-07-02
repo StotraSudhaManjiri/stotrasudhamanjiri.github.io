@@ -1,138 +1,42 @@
 ---
 layout: default
 ---
+<article class="shloka">
+    <header class="shloka-header">
+        <h1>{{ page.title }}</h1>
+        <button id="save-btn" type="button" class="btn-unboxed save-btn"
+                data-title="{{ page.title | escape }}"
+                data-url="{{ page.url | relative_url }}">🔖 Save to List</button>
+    </header>
 
-<div style="text-align: center; margin: 30px 0 20px 0;">
-    <h1 style="margin: 0; font-size: 2.2rem; color: var(--heading);">{{ page.title }}</h1>
-    
-    <button id="save-btn" onclick="openSaveModal()" style="background: transparent; border: none; color: var(--link); cursor: pointer; font-size: 1.1rem; margin-top: 15px; text-decoration: underline; padding: 0;">
-        🔖 Save to List
-    </button>
-</div>
+    <hr class="soft">
 
-<hr style="opacity: 0.3; margin-bottom: 30px;">
-
-<div class="shloka-text">
+    <div class="shloka-text">
 {{ content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" }}
-</div>
+    </div>
 
-<nav style="text-align: center; margin-top: 50px; opacity: 0.8; font-size: 1.1rem;">
-    <hr style="opacity: 0.3;">
-    <a href="{{ '/' | relative_url }}">← Back to Index</a> &nbsp;|&nbsp; 
-    <a href="../">🕉 More for {{ page.devata }}</a>
-</nav>
+    <nav class="page-nav">
+        <hr class="soft">
+        <a href="{{ '/' | relative_url }}">← Back to Index</a>
+        {% assign devata_page = site.devatas | where: "title", page.devata | first %}
+        {% if devata_page %}
+        &nbsp;|&nbsp;
+        <a href="{{ devata_page.url | relative_url }}">🕉 More for {{ devata_page.title }}</a>
+        {% endif %}
+    </nav>
+</article>
 
-<style>
-    .modal-backdrop {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.85);
-        display: flex; justify-content: center; align-items: center;
-        z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
-    }
-    .modal-backdrop.active { opacity: 1; pointer-events: auto; }
-    .modal-content {
-        background-color: var(--bg); border: 1px solid var(--hr-color);
-        padding: 25px; border-radius: 4px; width: 90%; max-width: 350px; text-align: center;
-    }
-    .modal-content input {
-        width: 80%; padding: 8px; margin: 15px 0;
-        background: var(--search-bg); border: 1px solid #444; color: var(--text); text-align: center;
-    }
-    .modal-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; }
-    .modal-actions button { 
-        flex: 1; padding: 8px; border: 1px solid var(--hr-color); 
-        cursor: pointer; background: transparent; color: var(--text); 
-    }
-    .modal-actions button:hover { background: rgba(255,255,255,0.1); }
-</style>
-
-<div id="saveModal" class="modal-backdrop">
+<div id="saveModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="saveModalTitle">
     <div class="modal-content">
-        <h3 style="margin-top: 0; color: var(--heading);">Save Shloka</h3>
-        <p style="font-size: 0.9em; margin-bottom: 5px;">Enter a list name:</p>
-        <input type="text" id="listNameInput" value="Favorites" onkeypress="handleEnter(event)">
-        
-        <div id="modalMessage" style="font-size: 0.9em; height: 20px; margin-bottom: 10px;"></div>
-        
+        <h3 id="saveModalTitle">Save Shloka</h3>
+        <p class="modal-hint">Enter a list name:</p>
+        <input type="text" id="listNameInput" value="Favorites">
+
+        <div id="modalMessage" class="modal-message" role="status"></div>
+
         <div class="modal-actions">
-            <button onclick="closeSaveModal()">Cancel</button>
-            <button onclick="confirmSave()" style="color: var(--link); border-color: var(--link);">Save</button>
+            <button type="button" id="modalCancelBtn">Cancel</button>
+            <button type="button" id="modalSaveBtn" class="primary">Save</button>
         </div>
     </div>
 </div>
-
-<script>
-    const currentShloka = { 
-        title: "{{ page.title }}", 
-        url: "{{ page.url | relative_url }}" 
-    };
-
-    const modal = document.getElementById('saveModal');
-    const input = document.getElementById('listNameInput');
-    const msgBox = document.getElementById('modalMessage');
-    const saveBtn = document.getElementById('save-btn');
-
-    // 1. Check if it's already saved when the page loads
-    function checkSavedState() {
-        let lists = JSON.parse(localStorage.getItem('custom_lists') || '{}');
-        for (let listName in lists) {
-            if (lists[listName].some(s => s.url === currentShloka.url)) {
-                saveBtn.innerHTML = '✅ Saved';
-                saveBtn.style.color = '#4CAF50'; // Make it green
-                saveBtn.style.textDecoration = 'none';
-                return;
-            }
-        }
-    }
-    checkSavedState();
-
-    // 2. Modal Controls
-    function openSaveModal() {
-        msgBox.innerText = "";
-        modal.classList.add('active');
-        input.focus();
-        input.select();
-    }
-
-    function closeSaveModal() {
-        modal.classList.remove('active');
-    }
-
-    function handleEnter(e) {
-        if (e.key === 'Enter') confirmSave();
-    }
-
-    // 3. Save Logic
-    function confirmSave() {
-        let listName = input.value.trim();
-        if (!listName) {
-            msgBox.innerText = "Please enter a name.";
-            msgBox.style.color = "var(--heading)";
-            return;
-        }
-
-        let lists = JSON.parse(localStorage.getItem('custom_lists') || '{}');
-        if (!lists[listName]) lists[listName] = [];
-        
-        let exists = lists[listName].some(s => s.url === currentShloka.url);
-        
-        if (!exists) {
-            lists[listName].push(currentShloka);
-            localStorage.setItem('custom_lists', JSON.stringify(lists));
-            
-            closeSaveModal(); 
-            saveBtn.innerHTML = `✅ Saved`;
-            saveBtn.style.color = '#4CAF50';
-            saveBtn.style.textDecoration = 'none';
-        } else {
-            msgBox.style.color = "var(--heading)";
-            msgBox.innerText = "⚠️ Already in this list!";
-        }
-        // Close the modal if the user clicks the dark background outside the box
-window.onclick = function(event) {
-    if (event.target === modal) {
-        closeSaveModal();
-    }
-}
-    }
-</script>

@@ -1,11 +1,12 @@
-const CACHE_NAME = 'stotra-cache-v1';
+const CACHE_NAME = 'stotra-cache-v2';
 const CORE_ASSETS = [
   '/',
   '/style.css',
+  '/assets/js/app.js',
   '/manifest.json'
 ];
 
-// Install Event: Pre-cache the core files
+// Install: pre-cache the core files
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -14,24 +15,32 @@ self.addEventListener('install', event => {
   );
 });
 
-// Fetch Event: Serve from network, save a copy, fallback to cache if offline
+// Activate: delete caches from older versions
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      ))
+      .then(() => self.clients.claim())
+  );
+});
+
+// Fetch: network first, save a copy, fall back to cache when offline
 self.addEventListener('fetch', event => {
-  // Only cache GET requests (HTML, CSS, etc.)
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        // Save a copy of the visited page for offline use
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
+        if (response.ok && event.request.url.startsWith(self.location.origin)) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+        }
         return response;
       })
-      .catch(() => {
-        // If network fails (offline), load from the cache
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
 });

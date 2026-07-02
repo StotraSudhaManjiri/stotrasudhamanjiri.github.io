@@ -1,6 +1,5 @@
 ---
-layout: shloka
-title: श्रीरामरक्षा 
+title: श्रीरामरक्षा
 devata: श्रीराम
 english_title: ramraksha
 ---

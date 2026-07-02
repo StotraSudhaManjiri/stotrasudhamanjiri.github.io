@@ -1,16 +1,28 @@
 ---
 layout: default
 ---
-<a href="{{ '/' | relative_url }}">index</a>
+<header class="page-header">
+    <h1>{% if page.emoji %}{{ page.emoji }} {% endif %}{{ page.title }}</h1>
+</header>
+
 <hr>
 
-<h1>{{ page.title }}</h1>
-
-{% assign related_shlokas = site.shlokas | where: "devata", page.title %}
-<ul>
+{% assign related_shlokas = site.shlokas | where: "devata", page.title | sort: "title" %}
+{% if related_shlokas.size > 0 %}
+<ul class="link-list">
     {% for shloka in related_shlokas %}
     <li>
         <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
     </li>
     {% endfor %}
 </ul>
+{% else %}
+<p class="no-results">अजून स्तोत्रे नाहीत (No shlokas yet)</p>
+{% endif %}
+
+{{ content }}
+
+<nav class="page-nav">
+    <hr class="soft">
+    <a href="{{ '/' | relative_url }}">← Back to Index</a>
+</nav>
