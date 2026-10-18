@@ -40,22 +40,45 @@
         }
     };
 
-    /* ---------- Live search (index) ---------- */
-    var searchInput = document.getElementById('searchInput');
-    var shlokaList = document.getElementById('shlokaList');
-    if (searchInput && shlokaList) {
-        var items = Array.prototype.slice.call(shlokaList.getElementsByTagName('li'));
+    /* ---------- Devata tag filter (index) ---------- */
+    var directory = document.getElementById('shlokaDirectory');
+    var filterNav = document.getElementById('devataFilter');
+    if (directory && filterNav) {
+        var items = Array.prototype.slice.call(directory.querySelectorAll('li'));
         var noResults = document.getElementById('noResults');
-        searchInput.addEventListener('input', function () {
-            var query = searchInput.value.trim().toLowerCase();
+        var pills = Array.prototype.slice.call(filterNav.querySelectorAll('.devata-pill'));
+        var activeDevata = null;
+
+        var applyFilter = function () {
             var visible = 0;
             items.forEach(function (item) {
-                var haystack = (item.textContent + ' ' + (item.dataset.search || '')).toLowerCase();
-                var match = haystack.indexOf(query) !== -1;
+                var match = !activeDevata || item.dataset.devata === activeDevata;
                 item.style.display = match ? '' : 'none';
                 if (match) visible++;
             });
             if (noResults) noResults.hidden = visible > 0;
+        };
+
+        pills.forEach(function (pill) {
+            pill.addEventListener('click', function () {
+                var devata = pill.dataset.devata;
+                var turningOn = activeDevata !== devata;
+                activeDevata = turningOn ? devata : null;
+                pills.forEach(function (p) {
+                    var isActive = turningOn && p === pill;
+                    p.classList.toggle('active', isActive);
+                    p.setAttribute('aria-pressed', String(isActive));
+                });
+                applyFilter();
+            });
+        });
+    }
+
+    /* ---------- Saved-state indicator on listings (index + devata pages) ---------- */
+    var listedItems = Array.prototype.slice.call(document.querySelectorAll('li[data-url]'));
+    if (listedItems.length) {
+        listedItems.forEach(function (item) {
+            if (Lists.contains(item.dataset.url)) item.classList.add('is-saved');
         });
     }
 
@@ -74,12 +97,12 @@
                 wrapper.className = 'saved-list';
 
                 var heading = document.createElement('h3');
-                heading.appendChild(document.createTextNode('📁 ' + name));
+                heading.appendChild(document.createTextNode(name));
 
                 var clearBtn = document.createElement('button');
                 clearBtn.type = 'button';
                 clearBtn.className = 'btn-small';
-                clearBtn.textContent = 'Clear';
+                clearBtn.textContent = 'Remove';
                 clearBtn.addEventListener('click', function () {
                     if (confirm('Delete the list "' + name + '"?')) {
                         Lists.remove(name);
@@ -90,7 +113,7 @@
                 wrapper.appendChild(heading);
 
                 var ul = document.createElement('ul');
-                ul.className = 'directory-list';
+                ul.className = 'shloka-list';
                 lists[name].forEach(function (shloka) {
                     var li = document.createElement('li');
                     var link = document.createElement('a');
@@ -116,13 +139,14 @@
         var message = document.getElementById('modalMessage');
 
         var markSaved = function () {
-            saveBtn.textContent = '✅ Saved';
+            saveBtn.textContent = 'Saved';
             saveBtn.classList.add('is-saved');
         };
         if (Lists.contains(shloka.url)) markSaved();
 
         var openModal = function () {
             message.textContent = '';
+            input.value = localStorage.getItem('last_list_name') || 'Favorites';
             modal.classList.add('active');
             input.focus();
             input.select();
@@ -137,10 +161,11 @@
                 return;
             }
             if (Lists.add(name, shloka)) {
+                localStorage.setItem('last_list_name', name);
                 closeModal();
                 markSaved();
             } else {
-                message.textContent = '⚠️ Already in this list!';
+                message.textContent = 'Already in this list.';
             }
         };
 
@@ -155,6 +180,50 @@
         });
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+        });
+    }
+
+    /* ---------- Font-size control (shloka pages) ---------- */
+    var fontSmaller = document.getElementById('fontSmaller');
+    var fontBigger = document.getElementById('fontBigger');
+    var shlokaText = document.getElementById('shlokaText');
+    if (fontSmaller && fontBigger && shlokaText) {
+        var SIZES = ['1.05rem', '1.3rem', '1.6rem', '1.9rem'];
+        var step = parseInt(localStorage.getItem('shloka_font_step'), 10);
+        if (isNaN(step) || step < 0 || step >= SIZES.length) step = 1;
+
+        var applySize = function () {
+            shlokaText.style.setProperty('--shloka-size', SIZES[step]);
+            localStorage.setItem('shloka_font_step', String(step));
+        };
+        applySize();
+
+        fontSmaller.addEventListener('click', function () {
+            if (step > 0) { step--; applySize(); }
+        });
+        fontBigger.addEventListener('click', function () {
+            if (step < SIZES.length - 1) { step++; applySize(); }
+        });
+    }
+
+    /* ---------- Copy shloka text (shloka pages) ---------- */
+    var copyBtn = document.getElementById('copy-btn');
+    var copyToast = document.getElementById('copyToast');
+    if (copyBtn && shlokaText) {
+        var showToast = function (msg) {
+            copyToast.textContent = msg;
+            copyToast.classList.add('show');
+            setTimeout(function () { copyToast.classList.remove('show'); }, 1500);
+        };
+        copyBtn.addEventListener('click', function () {
+            var text = shlokaText.innerText || shlokaText.textContent;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function () {
+                    showToast('Copied');
+                }, function () {
+                    showToast('Could not copy');
+                });
+            }
         });
     }
 

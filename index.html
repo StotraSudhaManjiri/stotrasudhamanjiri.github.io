@@ -2,42 +2,43 @@
 layout: default
 title: स्तोत्रसुधामंजिरी
 ---
-<header class="site-header">
-    <h1 class="site-title">{{ page.title }}</h1>
-    <p class="tagline">{{ site.description }}</p>
+{% assign sorted_devatas = site.devatas | sort: "english_title" %}
+<div class="page-grid">
+    <aside class="sidebar">
+        <p class="eyebrow">Home</p>
+        <h1 class="page-title">{{ page.title }}</h1>
+        <p class="lede">{{ site.description }}</p>
+        <button id="installAppBtn" type="button" class="text-btn" hidden>[ Install App ]</button>
 
-    <button id="installAppBtn" type="button" hidden>📲 Install App</button>
-</header>
+        {% include sidebar-more.html %}
+    </aside>
 
-<hr>
+    <div class="content">
+        <section id="saved-section" hidden>
+            <h2>Your Saved Shlokas</h2>
+            <div id="custom-lists-container"></div>
+            <hr>
+        </section>
 
-<div class="search-container">
-    <input type="search" id="searchInput" placeholder="Search ALL Shlokas..." aria-label="Search all shlokas">
+        <p class="eyebrow dashboard-section">Tags</p>
+        <nav class="tag-filter" id="devataFilter" aria-label="Filter by devata">
+            {% for devata in sorted_devatas %}
+            {% assign related = site.shlokas | where: "devata", devata.title %}
+            {% if related.size > 0 %}
+            <button type="button" class="tag-btn devata-pill" data-devata="{{ devata.title | escape }}" aria-pressed="false">{{ devata.english_title }} <span class="count">{{ related.size }}</span></button>
+            {% endif %}
+            {% endfor %}
+        </nav>
+
+        <p class="eyebrow dashboard-section">All Shlokas</p>
+        <ul class="shloka-list" id="shlokaDirectory">
+            {% assign all_shlokas = site.shlokas | sort: "title" %}
+            {% for shloka in all_shlokas %}
+            <li data-devata="{{ shloka.devata | escape }}" data-url="{{ shloka.url | relative_url }}">
+                <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <p id="noResults" class="no-results" hidden>No shlokas found</p>
+    </div>
 </div>
-
-<section id="saved-section" hidden>
-    <h2>तुमचे जतन केलेले श्लोक (Saved Lists)</h2>
-    <div id="custom-lists-container"></div>
-    <hr>
-</section>
-
-<h2>देवता (Devatas)</h2>
-<nav class="tag-cloud">
-    {% assign sorted_devatas = site.devatas | sort: "title" %}
-    {% for devata in sorted_devatas %}
-        <a href="{{ devata.url | relative_url }}">{% if devata.emoji %}{{ devata.emoji }} {% endif %}{{ devata.title }}</a>
-    {% endfor %}
-</nav>
-
-<h2>सर्व स्तोत्रे (All Shlokas)</h2>
-<ul class="directory-list" id="shlokaList">
-    {% assign sorted_shlokas = site.shlokas | sort: "title" %}
-    {% for shloka in sorted_shlokas %}
-    <li data-search="{{ shloka.english_title | escape }} {{ shloka.devata | escape }}">
-        <a href="{{ shloka.url | relative_url }}">{{ shloka.title }}</a>
-    </li>
-    {% endfor %}
-</ul>
-<p id="noResults" class="no-results" hidden>काहीही सापडले नाही (No shlokas found)</p>
-
-<hr>

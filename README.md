@@ -8,9 +8,9 @@ Jekyll and served on GitHub Pages. Works offline as a PWA.
 | Path | Purpose |
 |---|---|
 | `_shlokas/` | One `.md` file per shloka/stotra (content collection) |
-| `_devatas/` | One `.md` file per devata (index pages, tag cloud) |
+| `_devatas/` | One `.md` file per devata (index pages, tag filter) |
 | `_layouts/` | `default` (shell), `shloka` (reading page), `devata` (listing) |
-| `assets/js/app.js` | All client JS: search, saved lists (localStorage), save modal, PWA install |
+| `assets/js/app.js` | All client JS: devata tag filter, saved lists (localStorage), save modal, PWA install |
 | `style.css` | Single stylesheet; all colors are CSS variables (dark + light mode) |
 | `sw.js` | Service worker: network-first with offline cache fallback |
 
@@ -29,11 +29,14 @@ english_title: vakratunda mahakaya
 ```
 
 - `devata` must exactly match the `title` of a page in `_devatas/` — that links the
-  shloka to its devata page and the "More for …" navigation.
-- `english_title` (and `devata`) are searchable from the homepage search box,
-  so users can type in Latin script too.
-- Body text keeps its line breaks (`white-space: pre-wrap`); dandas (`।`/`॥`) are
-  automatically kept attached to the preceding word.
+  shloka to its devata page and the "More …" navigation, and drives the homepage
+  tag filter.
+- `english_title` is used for display wherever an English name is needed (it isn't
+  used for search — there is no search box).
+- Body text is split into one line per pada (half-verse) at each danda (`।`), so a
+  two-pada shloka on a single source line renders as two lines automatically;
+  dandas are kept attached to the preceding word via `&nbsp;`, and a line ending
+  in `॥` gets extra spacing before the next verse.
 
 ## Adding a devata
 
@@ -43,11 +46,9 @@ Create `_devatas/<english-name>.md`:
 ---
 title: श्री गणपती
 english_title: Shri Ganapati
-emoji: 🐘
 ---
 ```
 
-- `emoji` is optional; it shows in the homepage tag cloud and the devata page heading.
 - Any markdown body you add appears below the shloka list on the devata page.
 
 ## Local development

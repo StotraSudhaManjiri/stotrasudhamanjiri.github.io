@@ -1,214 +1,453 @@
-/* ==========================================================================
-   स्तोत्रसुधामंजिरी — minimalist theme
-   All colors live in the variables below; components only reference them.
-   ========================================================================== */
+/* स्तोत्रसुधामंजिरी — स्टाईलशीट
+   Printed pamphlet. One serif type system throughout; labels differ by
+   case/tracking, not by switching typeface. All colors in variables (light + dark). */
 
 :root {
-    /* based.cooking dark palette */
-    --bg: #111111;
-    --text: #cccccc;
-    --muted: #888888;
-    --title: #ffffff;
-    --heading: #e06c75;
-    --link: #e5c07b;
-    --link-hover: #ffffff;
-    --border: #444444;
-    --hr-color: #e5c07b;
-    --search-bg: #222222;
-    --success: #4caf50;
-    --backdrop: rgba(0, 0, 0, 0.85);
-    --hover-wash: rgba(255, 255, 255, 0.08);
+    --bg: #fdfdf8;
+    --surface: #f1efe8;
+    --text: #17181a;
+    --text-muted: #5c6570;
+    --rule: #17181a;
+    --rule-soft: #ddd8cc;
+    --accent: #8a3324;
+    --code-bg: #f1efe8;
+    --saved: #2f7a3d;
+    --shadow: rgba(20, 20, 15, 0.2);
+    --radius: 3px;
+
+    --font-reading: "Tiro Devanagari Marathi", "Noto Sans Devanagari", "Shobhika",
+                    Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
     :root {
-        --bg: #ffffff;
-        --text: #222222;
-        --muted: #777777;
-        --title: #222222;
-        --heading: #c0392b;
-        --link: #b8860b;
-        --link-hover: #000000;
-        --border: #cccccc;
-        --hr-color: #cccccc;
-        --search-bg: #f5f5f5;
-        --success: #2e7d32;
-        --backdrop: rgba(0, 0, 0, 0.4);
-        --hover-wash: rgba(0, 0, 0, 0.05);
+        --bg: #121314;
+        --surface: #1d1f21;
+        --text: #e9e9e4;
+        --text-muted: #9aa3ad;
+        --rule: #e9e9e4;
+        --rule-soft: #33383f;
+        --accent: #d98a74;
+        --code-bg: #1d1f21;
+        --saved: #86c17c;
+        --shadow: rgba(0, 0, 0, 0.5);
     }
 }
 
-/* --- Base ------------------------------------------------------------- */
+* { box-sizing: border-box; }
+
+html { text-size-adjust: 100%; }
+
+html, body { height: 100%; }
 body {
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-                 "Noto Sans", "Noto Sans Devanagari", sans-serif;
-    background-color: var(--bg);
+    margin: 0;
+    background: var(--bg);
     color: var(--text);
-    max-width: 900px;
+    font-family: var(--font-reading);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    width: 100%;
+    max-width: 920px;
     margin: 0 auto;
-    padding: 20px;
-    line-height: 1.6;
+    padding: 0 24px 60px;
+    flex: 1 0 auto;
+    box-sizing: border-box;
 }
 
-h1, h2, h3 { color: var(--heading); text-align: center; font-weight: bold; margin-top: 30px; }
-a { color: var(--link); text-decoration: none; }
-a:hover { color: var(--link-hover); text-decoration: underline; }
-
-hr { border: 0; border-top: 1px solid var(--hr-color); margin: 20px 0; }
-hr.soft { opacity: 0.3; }
-
-:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
-
-/* --- Buttons ----------------------------------------------------------- */
-button {
-    background: transparent;
-    border: 1px solid var(--link);
-    color: var(--link);
-    font: inherit;
-    cursor: pointer;
-    padding: 4px 12px;
-    border-radius: 3px;
-}
-button:hover { background: var(--hover-wash); }
-
-.btn-small { font-size: 0.75em; padding: 2px 10px; }
-
-.btn-unboxed {
-    border: none;
-    padding: 0;
-    font-size: 1.05rem;
+a {
+    color: var(--accent);
     text-decoration: underline;
 }
-.btn-unboxed:hover { background: none; color: var(--link-hover); }
+a:hover { opacity: 0.75; }
 
-/* --- Site header (index) ------------------------------------------------ */
-.site-header { text-align: center; }
-.site-title { color: var(--title); margin: 0 0 5px; font-size: 2rem; }
-.site-header .tagline { margin-top: 0; }
-#installAppBtn { margin-top: 10px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-/* --- Search -------------------------------------------------------------- */
-.search-container { text-align: center; margin: 20px 0; }
-input[type="text"],
-input[type="search"] {
-    background-color: var(--search-bg);
-    border: 1px solid var(--border);
+.skip-link {
+    position: absolute;
+    left: 10px;
+    top: -60px;
+    background: var(--bg);
     color: var(--text);
-    padding: 10px 15px;
-    width: 60%;
-    max-width: 400px;
-    border-radius: 4px;
+    border: 1px solid var(--rule);
+    padding: 8px 14px;
+    z-index: 200;
+    transition: top 0.15s ease;
+}
+.skip-link:focus { top: 10px; }
+
+hr {
+    border: none;
+    border-top: 1px solid var(--rule-soft);
+    margin: 24px 0;
+}
+
+code {
+    font-family: Menlo, Consolas, "Courier New", monospace;
+    background: var(--code-bg);
+    padding: 2px 6px;
+    border-radius: var(--radius);
+    font-size: 0.9em;
+}
+
+/* --- Two-column page layout (sidebar + content) ----------------------- */
+.page-grid {
+    display: flex;
+    gap: 48px;
+    padding-top: 40px;
+    align-items: flex-start;
+}
+.sidebar {
+    flex: 0 0 220px;
+    position: sticky;
+    top: 24px;
+}
+.content {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+}
+
+.page-title {
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+    line-height: 1.3;
+}
+.lede {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0 0 14px;
+}
+.meta-link { font-size: 0.9rem; }
+
+.back-link {
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+}
+
+.sidebar-links.external-links {
+    margin-top: 10px;
+}
+.sidebar-links.external-links a {
+    color: var(--text-muted);
+}
+.sidebar-links.external-links a:hover { color: var(--accent); }
+
+.sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+/* --- Devata tag filter (dashboard content area) --------------------------------------- */
+.dashboard-section { margin-top: 28px; }
+.tag-disclosure { margin-bottom: 8px; }
+.tag-disclosure summary {
+    cursor: pointer;
+    list-style: none;
+}
+.tag-disclosure summary::-webkit-details-marker { display: none; }
+.tag-disclosure summary::before {
+    content: "▸ ";
+    display: inline-block;
+}
+.tag-disclosure[open] summary::before { content: "▾ "; }
+.tag-disclosure summary:hover { color: var(--accent); }
+
+.tag-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+.tag-btn {
+    background: var(--surface);
+    border: none;
+    border-radius: var(--radius);
+    text-align: left;
+    color: var(--text);
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    min-height: 34px;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+.tag-btn:hover { color: var(--accent); }
+.tag-btn.active {
+    background: var(--accent);
+    color: var(--bg);
+}
+.tag-btn .count { color: var(--text-muted); font-size: 0.8em; }
+.tag-btn.active .count { color: var(--bg); opacity: 0.7; }
+
+/* --- Buttons --------------------------------------------------------- */
+button {
+    font: inherit;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    padding: 0;
+}
+
+/* Plain secondary action — text only, no border */
+.text-btn {
+    color: var(--text);
+    font-size: 0.95rem;
+    min-height: 44px;
+    padding: 10px 2px;
+    display: inline-flex;
+    align-items: center;
+}
+.text-btn:hover { color: var(--accent); }
+.text-btn.is-saved { color: var(--saved); }
+
+/* Primary action — the one thing on the page worth a fill */
+.text-btn.is-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 10px 16px;
+    border-radius: var(--radius);
+}
+.text-btn.is-primary:hover { opacity: 0.85; color: var(--bg); }
+.text-btn.is-primary.is-saved { background: var(--saved); color: var(--bg); }
+
+.text-btn-sm {
+    color: var(--text);
+    font-size: 0.9rem;
+    background: var(--surface);
+    padding: 10px 14px;
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+}
+.text-btn-sm:hover { color: var(--accent); }
+
+.btn-small {
+    font-size: 0.85rem;
+    color: var(--text);
+    min-height: 36px;
+    padding: 6px 4px;
+    display: inline-flex;
+    align-items: center;
+}
+.btn-small:hover { color: var(--accent); }
+
+#installAppBtn { margin-top: 10px; }
+@media (min-width: 769px) {
+    #installAppBtn { display: none; }
+}
+
+.action-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 16px;
+}
+.inline-toast {
+    font-size: 0.8rem;
+    color: var(--saved);
+    min-height: 1.2em;
+    flex-basis: 100%;
+}
+.font-size-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-basis: 100%;
+}
+.field-label {
+    font-size: 0.75rem;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 6px;
+}
+
+input[type="text"] {
+    width: 100%;
+    max-width: 360px;
+    background: var(--surface);
+    border: 1px solid var(--rule-soft);
+    color: var(--text);
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font: inherit;
     font-size: 1rem;
-    font-family: inherit;
 }
-input[type="text"]:focus,
-input[type="search"]:focus { outline: 1px solid var(--link); }
+input[type="text"]:focus { outline: 2px solid var(--accent); }
 
-.no-results { text-align: center; color: var(--muted); }
+.no-results { color: var(--text-muted); font-style: italic; }
 
-/* --- Multi-column shloka directory --------------------------------------- */
-ul.directory-list {
-    columns: 3;
-    -webkit-columns: 3;
-    column-gap: 40px;
-    padding-left: 20px;
-    list-style-type: disc;
+/* --- Shloka lists --------------------------------------------------------- */
+ul.shloka-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
 }
-ul.directory-list li { margin-bottom: 14px; break-inside: avoid; color: var(--link); }
+ul.shloka-list li {
+    border-top: 1px solid var(--rule-soft);
+    margin: 0;
+}
+ul.shloka-list li:first-child { border-top: none; }
+ul.shloka-list li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 13px 4px;
+    min-height: 44px;
+    color: var(--text);
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+ul.shloka-list li a:hover { color: var(--accent); opacity: 1; }
 
-/* Single centered list (devata pages, short lists) */
-ul.link-list { list-style: none; padding: 0; text-align: center; }
-ul.link-list li { margin: 14px 0; font-size: 1.15rem; }
+ul.shloka-list li.is-saved a::after {
+    content: "[saved]";
+    font-size: 0.75rem;
+    font-style: italic;
+    color: var(--saved);
+}
 
-/* --- Saved lists (index) -------------------------------------------------- */
+/* --- Saved lists --------------------------------------------------------- */
+.saved-list { margin: 0 0 32px; }
 .saved-list h3 {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 12px;
+    gap: 10px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0 0 8px;
 }
 
-/* --- Devata tag cloud ------------------------------------------------------ */
-.tag-cloud { text-align: center; margin-top: 15px; }
-.tag-cloud a {
-    display: inline-block;
-    margin: 6px;
-    padding: 7px 16px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    white-space: nowrap;
-}
-.tag-cloud a:hover {
-    border-color: var(--link);
-    color: var(--link-hover);
-    text-decoration: none;
-}
-
-/* --- Shloka reading page ---------------------------------------------------- */
-.shloka-header { text-align: center; margin: 30px 0 20px; }
-.shloka-header h1 { margin: 0; font-size: 2.2rem; }
-.shloka-header .save-btn { margin-top: 15px; }
-.save-btn.is-saved { color: var(--success); text-decoration: none; }
-
+/* --- Shloka reading text --------------------------------------------------- */
 .shloka-text {
-    white-space: pre-wrap;
-    font-size: 1.25rem;
-    line-height: 2;
-    text-align: center;
-    margin-top: 20px;
+    max-width: 56ch;
+}
+.shloka-line {
+    font-family: var(--font-reading);
+    font-size: var(--shloka-size, 1.3rem);
+    line-height: 1.6;
+    text-align: left;
+    margin: 0;
+    padding: 3px 0 3px 1.1em;
+    text-indent: -1.1em;
+}
+.shloka-line.verse-end { margin-bottom: 22px; }
+
+/* --- Reading guide (fixed translucent strip, mobile only) ------------------------------- */
+.reading-guide {
+    display: none;
+    pointer-events: none;
+    z-index: 5;
 }
 
-.page-nav { text-align: center; margin-top: 50px; font-size: 1.05rem; opacity: 0.85; }
-
-/* --- Modal -------------------------------------------------------------------- */
+/* --- Modal (plain bordered box) ------------------------------------------------------------------ */
 .modal-backdrop {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--backdrop);
+    position: fixed; inset: 0;
+    background: var(--shadow);
     display: flex; justify-content: center; align-items: center;
-    z-index: 1000;
-    opacity: 0; pointer-events: none; transition: opacity 0.2s ease;
+    padding: 20px;
+    z-index: 100;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.15s ease;
 }
 .modal-backdrop.active { opacity: 1; pointer-events: auto; }
 
 .modal-content {
-    background-color: var(--bg);
-    border: 1px solid var(--hr-color);
-    padding: 25px;
-    border-radius: 4px;
-    width: 90%;
-    max-width: 350px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 20px;
+    width: 100%;
+    max-width: 300px;
+    text-align: left;
 }
-.modal-content h3 { margin-top: 0; font-size: 1.4rem; }
-.modal-content .modal-hint { font-size: 0.9em; margin-bottom: 5px; }
-.modal-content input {
-    width: 80%;
-    padding: 8px;
-    margin: 15px 0;
-    text-align: center;
+.modal-content h3 {
+    margin: 0 0 4px; font-size: 1.15rem; font-weight: 700; color: var(--text);
 }
-.modal-message { min-height: 20px; font-size: 0.9em; color: var(--heading); margin-bottom: 10px; }
+.modal-hint { font-size: 0.85rem; color: var(--text-muted); margin: 6px 0; }
+.modal-content input { width: 100%; max-width: none; margin: 14px 0; }
+.modal-message { min-height: 18px; font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; }
 
-.modal-actions { display: flex; justify-content: space-between; gap: 10px; margin-top: 10px; }
-.modal-actions button { flex: 1; padding: 8px; border-color: var(--border); color: var(--text); }
-.modal-actions button.primary { border-color: var(--link); color: var(--link); }
+.modal-actions { display: flex; gap: 16px; margin-top: 8px; }
+.modal-actions button {
+    color: var(--text);
+    font-size: 0.95rem;
+    min-height: 44px;
+    padding: 10px 4px;
+}
+.modal-actions button.primary { font-weight: 700; color: var(--accent); }
 
-/* --- Footer ---------------------------------------------------------------------- */
-.site-footer { text-align: center; margin-top: 50px; font-size: 0.9em; }
+/* --- Footer -------------------------------------------------------------------- */
+.site-footer {
+    flex-shrink: 0;
+    text-align: center;
+    margin-top: 50px;
+    padding-bottom: 30px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
 
-/* --- Scrollbar --------------------------------------------------------------------- */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--link); }
-
-/* --- Responsive --------------------------------------------------------------------- */
+/* --- Responsive ------------------------------------------------------------------ */
 @media (max-width: 768px) {
-    ul.directory-list { columns: 2; }
-    input[type="text"], input[type="search"] { width: 90%; }
-}
-@media (max-width: 480px) {
-    ul.directory-list { columns: 1; }
-    .shloka-header h1 { font-size: 1.8rem; }
+    .page-grid {
+        flex-direction: column;
+        gap: 8px;
+        padding-top: 24px;
+    }
+    .sidebar {
+        position: static;
+        flex-basis: auto;
+        width: 100%;
+    }
+    .content { width: 100%; }
+    .page-title { font-size: 1.4rem; margin-bottom: 6px; }
+    .lede { margin-bottom: 10px; }
+    .back-link { margin-bottom: 10px; }
+    .shloka-line { font-size: var(--shloka-size, 1.15rem); }
+    .action-list { margin-top: 14px; }
+
+    .reading-guide {
+        display: block;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100vw - 40px);
+        height: 54px;
+        background: color-mix(in srgb, var(--text) 8%, transparent);
+        border-top: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+        border-bottom: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+    }
 }

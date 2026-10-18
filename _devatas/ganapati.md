@@ -1,5 +1,4 @@
 ---
 title: श्री गणपती
 english_title: Shri Ganapati
-emoji: 🐘
 ---

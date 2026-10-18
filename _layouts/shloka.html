@@ -1,30 +1,66 @@
 ---
 layout: default
 ---
-<article class="shloka">
-    <header class="shloka-header">
-        <h1>{{ page.title }}</h1>
-        <button id="save-btn" type="button" class="btn-unboxed save-btn"
-                data-title="{{ page.title | escape }}"
-                data-url="{{ page.url | relative_url }}">🔖 Save to List</button>
-    </header>
+{% assign devata_page = site.devatas | where: "title", page.devata | first %}
+<div class="page-grid">
+    <aside class="sidebar">
+        <a href="{{ '/' | relative_url }}" class="back-link">← All Shlokas</a>
+        <p class="eyebrow">Shloka</p>
+        <h1 class="page-title">{{ page.title }}</h1>
+        {% if devata_page %}<a href="{{ devata_page.url | relative_url }}" class="meta-link">{{ devata_page.english_title }}</a>{% endif %}
 
-    <hr class="soft">
+        <div class="action-list">
+            <button id="save-btn" type="button" class="text-btn is-primary"
+                    data-title="{{ page.title | escape }}"
+                    data-url="{{ page.url | relative_url }}">[ Save ]</button>
+            <button id="copy-btn" type="button" class="text-btn">[ Copy ]</button>
+            <span id="copyToast" class="inline-toast" role="status"></span>
 
-    <div class="shloka-text">
-{{ content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" }}
+            <div class="font-size-control">
+                <span class="field-label">Text size</span>
+                <button id="fontSmaller" type="button" class="text-btn-sm" aria-label="Decrease text size">A−</button>
+                <button id="fontBigger" type="button" class="text-btn-sm" aria-label="Increase text size">A+</button>
+            </div>
+        </div>
+    </aside>
+
+    <div class="content">
+        <article class="shloka" lang="mr">
+        {% assign joined_content = content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" | strip_html %}
+        {% capture newline_char %}
+{% endcapture %}
+        <div class="shloka-text" id="shlokaText">
+            {% assign lines = joined_content | split: newline_char %}
+            {% for line in lines %}
+            {% assign trimmed_line = line | strip %}
+            {% unless trimmed_line == "" %}
+            {% assign marked_line = trimmed_line | replace: "।", "।@@BREAK@@" %}
+            {% assign padas = marked_line | split: "@@BREAK@@" %}
+            {% for pada in padas %}
+            {% assign pada_text = pada | strip %}
+            {% unless pada_text == "" %}
+            {% assign is_verse_end = false %}
+            {% if pada_text contains "॥" %}
+            {% assign digits = "०,१,२,३,४,५,६,७,८,९" | split: "," %}
+            {% for digit in digits %}
+            {% if pada_text contains digit %}{% assign is_verse_end = true %}{% endif %}
+            {% endfor %}
+            {% endif %}
+            {% if is_verse_end %}
+            <p class="shloka-line verse-end">{{ pada_text }}</p>
+            {% else %}
+            <p class="shloka-line">{{ pada_text }}</p>
+            {% endif %}
+            {% endunless %}
+            {% endfor %}
+            {% endunless %}
+            {% endfor %}
+        </div>
+        </article>
     </div>
+</div>
 
-    <nav class="page-nav">
-        <hr class="soft">
-        <a href="{{ '/' | relative_url }}">← Back to Index</a>
-        {% assign devata_page = site.devatas | where: "title", page.devata | first %}
-        {% if devata_page %}
-        &nbsp;|&nbsp;
-        <a href="{{ devata_page.url | relative_url }}">🕉 More for {{ devata_page.title }}</a>
-        {% endif %}
-    </nav>
-</article>
+<div class="reading-guide" aria-hidden="true"></div>
 
 <div id="saveModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="saveModalTitle">
     <div class="modal-content">

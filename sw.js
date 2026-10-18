@@ -1,4 +1,4 @@
-const CACHE_NAME = 'stotra-cache-v2';
+const CACHE_NAME = 'stotra-cache-v3';
 const CORE_ASSETS = [
   '/',
   '/style.css',
