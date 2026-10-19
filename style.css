@@ -366,6 +366,29 @@ ul.shloka-list li.is-saved a::after {
 }
 .shloka-line.verse-end { margin-bottom: 22px; }
 
+/* --- Meaning (अर्थ) disclosure --------------------------------------------- */
+.artha-disclosure {
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule-soft);
+}
+.artha-body {
+    font-family: var(--font-reading);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-top: 12px;
+}
+.artha-body p { margin: 0 0 14px; }
+.artha-body p:last-child { margin-bottom: 0; }
+.artha-body strong { color: var(--text); }
+.artha-source {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
 /* --- Reading guide (fixed translucent strip, mobile only) ------------------------------- */
 .reading-guide {
     display: none;

@@ -26,7 +26,9 @@ layout: default
 
     <div class="content">
         <article class="shloka" lang="mr">
-        {% assign joined_content = content | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" | strip_html %}
+        {% assign content_parts = content | split: "<!--ARTHA-->" %}
+        {% assign shloka_html = content_parts[0] %}
+        {% assign joined_content = shloka_html | replace: " ||", "&nbsp;||" | replace: " |", "&nbsp;|" | replace: " ॥", "&nbsp;॥" | replace: " ।", "&nbsp;।" | strip_html %}
         {% capture newline_char %}
 {% endcapture %}
         <div class="shloka-text" id="shlokaText">
@@ -56,6 +58,15 @@ layout: default
             {% endunless %}
             {% endfor %}
         </div>
+
+        {% if content_parts[1] %}
+        <details class="artha-disclosure">
+            <summary class="eyebrow">Meaning (अर्थ)</summary>
+            <div class="artha-body" lang="en">
+                {{ content_parts[1] }}
+            </div>
+        </details>
+        {% endif %}
         </article>
     </div>
 </div>
