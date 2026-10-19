@@ -40,3 +40,13 @@ english_title: ganapati atharvashirsha
 ॐ भद्रं कर्णेभिः श‍ृणुयाम देवाः । भद्रं पश्येमाक्षभिर्यजत्राः । स्थिरैरङ्गैस्तुष्टुवाꣳ सस्तनूभिः । व्यशेम देवहितं यदायुः । स्वस्ति न इन्द्रो वृद्धश्रवाः । स्वस्ति नः पूषा विश्ववेदाः । स्वस्ति नस्तार्क्ष्यो अरिष्टनेमिः । स्वस्ति नो बृहस्पतिर्दधातु ॥
 
 ॐ शान्तिः शान्तिः शान्तिः ॥
+
+<!--ARTHA-->
+
+**Shanti Patha (opening invocation) — Translation:** O Deities! By ears may we hear what is auspicious; by eyes may we see what is auspicious. O Worshipped ones! With hale and hearty limbs may we live, offering our praises unto Thee. For the benefit of God may we live the entire span of life. May the ancient and famous Indra give blessings to us. May the all-knowing Sun give blessings to us. May the Lord of swift motion (Garuda), who removes our obstacles, give blessings to us. May Brihaspati (Guru of the deities) give blessings to us. Let there be peace, let there be peace, let there be peace.
+
+**About गण and अथर्वशीर्ष:** गण (gaṇa) refers to the Ashta Vasus — the eight guardians of the directions — of whom Ganapati is lord (पती); no other deity may enter a direction without his leave, which is why Ganapati is worshipped first before any auspicious undertaking or the worship of any other deity. अथर्व (a-tharva) means "that which does not tremble," i.e. fearless; शीर्ष (śīrṣa) means "head" or "crown." अथर्वशीर्ष is thus the text whose recitation brings fearless peace to the mind.
+
+<em>Note: this is a partial meaning — the Shanti Patha translation and etymology above are sourced below; the main 14-verse Upanishad body does not yet have a verified published translation on this page.</em>
+
+<span class="artha-source">Sources: Shanti Patha translation from <a href="https://shlokam.org/shloka/ganapathi-atharvashirsha.htm" target="_blank" rel="noopener">shlokam.org</a>; गण/अथर्वशीर्ष etymology from <a href="https://kirtankar.com/ganpati-atharvashirsha-marathi/" target="_blank" rel="noopener">kirtankar.com</a></span>
