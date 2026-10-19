@@ -276,7 +276,8 @@ button {
     min-height: 1.2em;
     flex-basis: 100%;
 }
-.font-size-control {
+.font-size-control,
+.export-control {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -473,4 +474,33 @@ ul.shloka-list li.is-saved a::after {
         border-top: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
         border-bottom: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
     }
+}
+
+/* --- Print ------------------------------------------------------------------ */
+@media print {
+    .skip-link,
+    .back-link,
+    .action-list,
+    .sidebar-links,
+    .tag-disclosure,
+    .tag-filter,
+    .site-footer,
+    .reading-guide,
+    #installAppBtn,
+    .artha-disclosure summary,
+    .no-results {
+        display: none !important;
+    }
+    .page-grid { display: block; }
+    .sidebar { position: static; }
+    .shloka-line {
+        color: #000;
+        font-size: 13pt;
+        line-height: 1.6;
+    }
+    .artha-disclosure { border-top: 1px solid #999; }
+    .artha-body { color: #000; }
+    body { background: #fff; color: #000; }
+    a { color: #000; text-decoration: none; }
+    main { max-width: 100%; padding: 0; }
 }

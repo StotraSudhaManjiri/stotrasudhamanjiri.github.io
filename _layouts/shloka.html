@@ -21,6 +21,17 @@ layout: default
                 <button id="fontSmaller" type="button" class="text-btn-sm" aria-label="Decrease text size">A−</button>
                 <button id="fontBigger" type="button" class="text-btn-sm" aria-label="Increase text size">A+</button>
             </div>
+
+            <div class="export-control">
+                <span class="field-label">Export</span>
+                <button id="downloadTxtBtn" type="button" class="text-btn-sm"
+                        data-title="{{ page.title | escape }}"
+                        data-devata="{% if devata_page %}{{ devata_page.english_title | escape }}{% endif %}">.txt</button>
+                <button id="downloadMdBtn" type="button" class="text-btn-sm"
+                        data-title="{{ page.title | escape }}"
+                        data-devata="{% if devata_page %}{{ devata_page.english_title | escape }}{% endif %}">.md</button>
+                <button id="printBtn" type="button" class="text-btn-sm">Print</button>
+            </div>
         </div>
     </aside>
 

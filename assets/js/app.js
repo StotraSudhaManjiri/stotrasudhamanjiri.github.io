@@ -227,6 +227,51 @@
         });
     }
 
+    /* ---------- Download .txt / .md, Print (shloka pages) ---------- */
+    var downloadFile = function (filename, mimeType, content) {
+        var blob = new Blob([content], { type: mimeType });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+    };
+    var slugify = function (s) {
+        return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'shloka';
+    };
+
+    var downloadTxtBtn = document.getElementById('downloadTxtBtn');
+    if (downloadTxtBtn && shlokaText) {
+        downloadTxtBtn.addEventListener('click', function () {
+            var title = downloadTxtBtn.dataset.title;
+            var devata = downloadTxtBtn.dataset.devata;
+            var body = shlokaText.innerText || shlokaText.textContent;
+            var out = title + (devata ? '\n' + devata : '') + '\n\n' + body;
+            downloadFile(slugify(downloadTxtBtn.dataset.title || title) + '.txt', 'text/plain;charset=utf-8', out);
+        });
+    }
+
+    var downloadMdBtn = document.getElementById('downloadMdBtn');
+    if (downloadMdBtn && shlokaText) {
+        downloadMdBtn.addEventListener('click', function () {
+            var title = downloadMdBtn.dataset.title;
+            var devata = downloadMdBtn.dataset.devata;
+            var body = shlokaText.innerText || shlokaText.textContent;
+            var out = '# ' + title + (devata ? '\n\n*' + devata + '*' : '') + '\n\n' + body;
+            downloadFile(slugify(title) + '.md', 'text/markdown;charset=utf-8', out);
+        });
+    }
+
+    var printBtn = document.getElementById('printBtn');
+    if (printBtn) {
+        printBtn.addEventListener('click', function () {
+            window.print();
+        });
+    }
+
     /* ---------- PWA install prompt (index) ---------- */
     var installBtn = document.getElementById('installAppBtn');
     if (installBtn) {
