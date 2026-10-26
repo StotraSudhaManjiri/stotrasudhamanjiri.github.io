@@ -3,35 +3,50 @@
    case/tracking, not by switching typeface. All colors in variables (light + dark). */
 
 :root {
-    --bg: #fdfdf8;
-    --surface: #f1efe8;
-    --text: #17181a;
-    --text-muted: #5c6570;
-    --rule: #17181a;
-    --rule-soft: #ddd8cc;
-    --accent: #8a3324;
-    --code-bg: #f1efe8;
-    --saved: #2f7a3d;
-    --shadow: rgba(20, 20, 15, 0.2);
+    --bg: #fbf7ee;
+    --surface: #f1e8d6;
+    --text: #221d16;
+    --text-muted: #6b6050;
+    --rule: #221d16;
+    --rule-soft: #ddceac;
+    --accent: #a8431f;
+    --code-bg: #f1e8d6;
+    --saved: #3f7d4a;
+    --shadow: rgba(20, 16, 8, 0.22);
     --radius: 3px;
 
     --font-reading: "Tiro Devanagari Marathi", "Noto Sans Devanagari", "Shobhika",
                     Georgia, "Iowan Old Style", "Palatino Linotype", "Times New Roman", serif;
 }
 
+/* Dark mode: system preference, unless the user has explicitly chosen light */
 @media (prefers-color-scheme: dark) {
-    :root {
-        --bg: #121314;
-        --surface: #1d1f21;
-        --text: #e9e9e4;
-        --text-muted: #9aa3ad;
-        --rule: #e9e9e4;
-        --rule-soft: #33383f;
-        --accent: #d98a74;
-        --code-bg: #1d1f21;
-        --saved: #86c17c;
-        --shadow: rgba(0, 0, 0, 0.5);
+    :root:not([data-theme="light"]) {
+        --bg: #14131a;
+        --surface: #1e1c25;
+        --text: #ece7db;
+        --text-muted: #a39c8c;
+        --rule: #ece7db;
+        --rule-soft: #362f3d;
+        --accent: #e0995f;
+        --code-bg: #1e1c25;
+        --saved: #7ec97a;
+        --shadow: rgba(0, 0, 0, 0.55);
     }
+}
+
+/* Dark mode: explicit user choice, overriding system preference either way */
+:root[data-theme="dark"] {
+    --bg: #14131a;
+    --surface: #1e1c25;
+    --text: #ece7db;
+    --text-muted: #a39c8c;
+    --rule: #ece7db;
+    --rule-soft: #362f3d;
+    --accent: #e0995f;
+    --code-bg: #1e1c25;
+    --saved: #7ec97a;
+    --shadow: rgba(0, 0, 0, 0.55);
 }
 
 * { box-sizing: border-box; }
@@ -80,6 +95,25 @@ a:hover { opacity: 0.75; }
     transition: top 0.15s ease;
 }
 .skip-link:focus { top: 10px; }
+
+.theme-toggle {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 50;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--rule-soft);
+    border-radius: var(--radius);
+    font-size: 0.8rem;
+    letter-spacing: 0.03em;
+    min-height: 36px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.theme-toggle:hover { color: var(--accent); }
 
 hr {
     border: none;
@@ -479,6 +513,7 @@ ul.shloka-list li.is-saved a::after {
 /* --- Print ------------------------------------------------------------------ */
 @media print {
     .skip-link,
+    .theme-toggle,
     .back-link,
     .action-list,
     .sidebar-links,

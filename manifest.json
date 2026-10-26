@@ -4,8 +4,8 @@
     "description": "A minimalist, bloat-free collection of Shlokas and Stotras in Marathi.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#fdfdf8",
-    "theme_color": "#fdfdf8",
+    "background_color": "#fbf7ee",
+    "theme_color": "#fbf7ee",
     "icons": [
         {
             "src": "icon.svg",

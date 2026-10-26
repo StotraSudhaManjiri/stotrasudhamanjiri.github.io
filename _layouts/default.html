@@ -8,17 +8,17 @@
 
     {% assign page_title = page.title %}
     {% if page.collection == "devatas" %}{% assign page_title = page.english_title %}{% endif %}
-    <title>{% if page.url == "/" %}{{ site.title }} — Marathi Shlokas and Stotras{% else %}{{ page_title }} · {{ site.title }}{% endif %}</title>
+    <title>{% if page.url == "/" %}{{ site.title }} · Marathi Shlokas and Stotras{% else %}{{ page_title }} · {{ site.title }}{% endif %}</title>
 
     {% assign page_description = page.description %}
     {% if page.collection == "devatas" %}
-        {% assign page_description = page.english_title | append: " — shlokas and stotras dedicated to " | append: page.english_title | append: ", from " | append: site.title | append: ", a Marathi devotional shloka collection." %}
+        {% assign page_description = page.english_title | append: ", shlokas and stotras dedicated to " | append: page.english_title | append: ", from " | append: site.title | append: ", a Marathi devotional shloka collection." %}
     {% elsif page.collection == "shlokas" %}
         {% assign devata_page = site.devatas | where: "title", page.devata | first %}
         {% if devata_page %}
-            {% assign page_description = page.title | append: " (" | append: page.english_title | append: ") — a Marathi/Sanskrit shloka dedicated to " | append: devata_page.english_title | append: ", from " | append: site.title | append: "." %}
+            {% assign page_description = page.title | append: " (" | append: page.english_title | append: "), a Marathi/Sanskrit shloka dedicated to " | append: devata_page.english_title | append: ", from " | append: site.title | append: "." %}
         {% else %}
-            {% assign page_description = page.title | append: " (" | append: page.english_title | append: ") — from " | append: site.title | append: ", a Marathi devotional shloka collection." %}
+            {% assign page_description = page.title | append: " (" | append: page.english_title | append: "), from " | append: site.title | append: ", a Marathi devotional shloka collection." %}
         {% endif %}
     {% endif %}
     {% assign page_description = page_description | default: site.description %}
@@ -28,9 +28,20 @@
     <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
     <link rel="icon" href="{{ '/icon.svg' | relative_url }}" type="image/svg+xml">
     <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
-    <meta name="theme-color" content="#fdfdf8" media="(prefers-color-scheme: light)">
-    <meta name="theme-color" content="#121314" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#fbf7ee" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#14131a" media="(prefers-color-scheme: dark)">
     <meta name="google-site-verification" content="4NjwjO6RAmI5YnVc7UZzTLMZt8Z01LDIbc1A226pW-Q" />
+
+    <script>
+        (function () {
+            try {
+                var saved = localStorage.getItem('theme');
+                if (saved === 'light' || saved === 'dark') {
+                    document.documentElement.setAttribute('data-theme', saved);
+                }
+            } catch (e) {}
+        })();
+    </script>
 
     <meta property="og:type" content="{% if page.collection %}article{% else %}website{% endif %}">
     <meta property="og:title" content="{% if page.url == '/' %}{{ site.title }}{% else %}{{ page_title }} · {{ site.title }}{% endif %}">
@@ -77,6 +88,8 @@
 </head>
 <body>
     <a href="#main" class="skip-link">Skip to content</a>
+
+    <button type="button" id="themeToggle" class="theme-toggle" aria-label="Toggle light / dark theme">◐ Theme</button>
 
     <main id="main">
         {{ content }}

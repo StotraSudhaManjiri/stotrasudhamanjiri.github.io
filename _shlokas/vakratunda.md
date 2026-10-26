@@ -13,24 +13,24 @@ english_title: vakratunda mahakaya
 
 **Word-meanings:**
 
-वक्रतुण्ड (vakratuṇḍa) — curved trunk (vakra: curved · tuṇḍa: trunk)
+वक्रतुण्ड (vakratuṇḍa), curved trunk (vakra: curved · tuṇḍa: trunk)
 
-महाकाय (mahākāya) — large body (mahā: large · kāya: body)
+महाकाय (mahākāya), large body (mahā: large · kāya: body)
 
-सूर्यकोटि (sūryakoṭi) — million suns (sūrya: sun · koṭi: million)
+सूर्यकोटि (sūryakoṭi), million suns (sūrya: sun · koṭi: million)
 
-समप्रभ (samaprabha) — equal splendour (sama: equal · prabha: splendour)
+समप्रभ (samaprabha), equal splendour (sama: equal · prabha: splendour)
 
-निर्विघ्नं (nirvighnaṃ) — without obstacles
+निर्विघ्नं (nirvighnaṃ), without obstacles
 
-कुरु (kuru) — do
+कुरु (kuru), do
 
-मे (me) — my
+मे (me), my
 
-देव (deva) — O Lord
+देव (deva), O Lord
 
-सर्वकार्येषु (sarvakāryeṣu) — in all undertakings (sarva: all · kāryeṣu: in undertakings)
+सर्वकार्येषु (sarvakāryeṣu), in all undertakings (sarva: all · kāryeṣu: in undertakings)
 
-सर्वदा (sarvadā) — always
+सर्वदा (sarvadā), always
 
 <span class="artha-source">Source: [shlokam.org](https://shlokam.org/shloka/vakrathunda-mahakaya.htm)</span>

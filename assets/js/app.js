@@ -1,4 +1,4 @@
-/* स्तोत्रसुधामंजिरी — shared client script.
+/* स्तोत्रसुधामंजिरी: shared client script.
    Each feature activates only when its elements exist on the page,
    so every layout can include this single file. */
 (function () {
@@ -39,6 +39,35 @@
             });
         }
     };
+
+    /* ---------- Theme toggle (light / dark / system) ---------- */
+    var themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var getTheme = function () {
+            try {
+                return localStorage.getItem('theme');
+            } catch (e) {
+                return null;
+            }
+        };
+        var isDark = function () {
+            var saved = getTheme();
+            return saved ? saved === 'dark' : prefersDark;
+        };
+        var render = function () {
+            themeToggle.textContent = isDark() ? '☾ Dark' : '☼ Light';
+        };
+        render();
+        themeToggle.addEventListener('click', function () {
+            var next = isDark() ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try {
+                localStorage.setItem('theme', next);
+            } catch (e) {}
+            render();
+        });
+    }
 
     /* ---------- Devata tag filter (index) ---------- */
     var directory = document.getElementById('shlokaDirectory');
