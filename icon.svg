@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#fdfdf8" />
-  <circle cx="256" cy="256" r="224" fill="none" stroke="#8a3324" stroke-width="10" />
+  <rect width="512" height="512" fill="#fbf7ee" />
+  <circle cx="256" cy="256" r="224" fill="none" stroke="#a8431f" stroke-width="10" />
   <text x="256" y="276" font-family="Georgia, serif" font-weight="bold" font-size="220"
-        fill="#8a3324" text-anchor="middle" dominant-baseline="middle">ॐ</text>
+        fill="#a8431f" text-anchor="middle" dominant-baseline="middle">ॐ</text>
 </svg>
